@@ -99,16 +99,28 @@ form.addEventListener('submit', async (e) => {
             masaBayaran: masa
         });
 
-        // 3. Hantar Base64 ke GAS (Akan diaktifkan sepenuhnya pada Fasa 4)
+        // 3. Hantar Base64 ke GAS
         const payloadGAS = {
             action: 'upload_receipt',
             id: idTempahan,
+            nama: dataSemasa.nama,   // Ditarik dari pangkalan data Firebase
+            emel: dataSemasa.emel,   // Ditarik dari pangkalan data Firebase
             refNo: refNo,
-            imageB64: base64String.split(',')[1], // Buang header data:image/jpeg;base64,
+            tarikh: tarikh,
+            masa: masa,
+            imageB64: base64String.split(',')[1],
             mimeType: base64String.split(';')[0].split(':')[1]
         };
         
-        // TODO: fetch('URL_GAS_ANDA', { method: 'POST', body: JSON.stringify(payloadGAS) });
+        // MASUKKAN WEB APP URL ANDA DI BAWAH INI
+        const gasURL = "https://script.google.com/macros/s/MASUKKAN_URL_ANDA_DI_SINI/exec";
+        
+        // Hantar ke Google Apps Script tanpa menunggu respon (Fire and forget) untuk elak browser 'hang'
+        fetch(gasURL, {
+            method: 'POST',
+            body: JSON.stringify(payloadGAS),
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' } // text/plain elak isu CORS ketat
+        });
 
         statusMsg.className = "text-center mt-2 font-bold text-green-600";
         statusMsg.innerText = "Berjaya! Resit anda sedang disemak.";
