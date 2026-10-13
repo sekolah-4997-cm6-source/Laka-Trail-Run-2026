@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borang Pendaftaran - Laka Selatan Nanas Run 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
+        <h1 class="text-3xl font-bold text-center text-green-700 mb-2">Borang Pendaftaran</h1>
+        <p class="text-center text-gray-600 mb-6">Slot Pakej A Berbaki: <span id="slotBaki" class="font-bold text-red-600">Memuatkan...</span></p>
+
+        <form id="bookingForm" class="space-y-4">
+            <div>
+                <label class="block font-semibold">Nama Penuh (Mengikut IC)</label>
+                <input type="text" id="nama" required class="w-full border p-2 rounded mt-1">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-semibold">No. Kad Pengenalan</label>
+                    <input type="text" id="ic" required placeholder="Cth: 901201025544" class="w-full border p-2 rounded mt-1">
+                </div>
+                <div>
+                    <label class="block font-semibold">Jantina</label>
+                    <select id="jantina" required class="w-full border p-2 rounded mt-1">
+                        <option value="">Pilih</option>
+                        <option value="Lelaki">Lelaki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-semibold">No. Telefon</label>
+                    <input type="tel" id="telefon" required class="w-full border p-2 rounded mt-1">
+                </div>
+                <div>
+                    <label class="block font-semibold">E-mel</label>
+                    <input type="email" id="emel" required class="w-full border p-2 rounded mt-1">
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-semibold">Pilih Pakej</label>
+                <select id="pakej" required class="w-full border p-2 rounded mt-1">
+                    <option value="">Sila Pilih Pakej</option>
+                    <option value="A">Pakej A (Baju, Medal, Bib, Sijil) - RM35</option>
+                    <option value="B">Pakej B (Medal, Bib, Sijil) - RM20</option>
+                </select>
+            </div>
+
+            <div id="ruangSaiz" class="hidden">
+                <label class="block font-semibold">Saiz Baju</label>
+                <select id="saizBaju" class="w-full border p-2 rounded mt-1">
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div>
+
+            <hr class="my-4">
+            <h3 class="font-semibold">Maklumat Kecemasan</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm">Nama Waris</label>
+                    <input type="text" id="warisNama" required class="w-full border p-2 rounded mt-1">
+                </div>
+                <div>
+                    <label class="block text-sm">No. Telefon Waris</label>
+                    <input type="tel" id="warisTel" required class="w-full border p-2 rounded mt-1">
+                </div>
+            </div>
+
+            <div class="flex items-start mt-4">
+                <input type="checkbox" id="syarat" required class="mt-1 mr-2">
+                <label class="text-sm text-gray-600">Saya bersetuju dengan terma & syarat, dan mengaku sihat tubuh badan untuk menyertai larian ini.</label>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="w-full bg-green-600 text-white font-bold py-3 rounded mt-6 hover:bg-green-700 transition">Tempah Slot Sekarang</button>
+            <p id="statusMsg" class="text-center mt-2 font-bold hidden"></p>
+        </form>
+        
+        <!-- Pautan kembali ke laman utama -->
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-sm text-gray-500 hover:underline">← Kembali ke Laman Utama</a>
+        </div>
+    </div>
+
+    <!-- Skrip ini akan hubungkan HTML ini dengan booking.js -->
+    <script type="module" src="booking.js"></script>
+</body>
+</html>
