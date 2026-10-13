@@ -3,91 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laka Selatan Nanas Run 2026 - Pendaftaran</title>
+    <title>Laka Selatan Nanas Run 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
-        <h1 class="text-3xl font-bold text-center text-green-700 mb-2">Laka Selatan Nanas Run 2026</h1>
-        <p class="text-center text-gray-600 mb-6">Slot Pakej A Berbaki: <span id="slotBaki" class="font-bold text-red-600">Memuatkan...</span></p>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-        <form id="bookingForm" class="space-y-4">
-            <div>
-                <label class="block font-semibold">Nama Penuh (Mengikut IC)</label>
-                <input type="text" id="nama" required class="w-full border p-2 rounded mt-1">
-            </div>
+    <!-- Navigasi -->
+    <nav class="bg-green-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wider">🍍 NANAS RUN '26</h1>
+            <a href="admin.html" class="text-sm bg-green-800 hover:bg-green-900 px-3 py-1 rounded transition">Log Masuk Urusetia</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-16 text-center max-w-3xl">
+            <h2 class="text-4xl font-black text-gray-900 mb-4">Laka Selatan Nanas Run 2026</h2>
+            <p class="text-lg text-gray-600 mb-8">Sertai larian merentas ladang nanas terbesar di utara! Semak pendaftaran dan muat naik bukti pembayaran anda di portal rasmi ini.</p>
             
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-semibold">No. Kad Pengenalan</label>
-                    <input type="text" id="ic" required placeholder="Cth: 901201025544" class="w-full border p-2 rounded mt-1">
-                </div>
-                <div>
-                    <label class="block font-semibold">Jantina</label>
-                    <select id="jantina" required class="w-full border p-2 rounded mt-1">
-                        <option value="">Pilih</option>
-                        <option value="Lelaki">Lelaki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                </div>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- Butang Daftar (Boleh pautkan ke borang pendaftaran Firebase anda atau Google Form jika ada) -->
+                <a href="#" class="bg-yellow-500 text-yellow-900 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-400 transition cursor-pointer">
+                    Daftar Sekarang (Ditutup)
+                </a>
+                
+                <!-- Butang Semak -->
+                <a href="semak.html" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition">
+                    Semak Status Pendaftaran
+                </a>
             </div>
+        </div>
+    </header>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-semibold">No. Telefon</label>
-                    <input type="tel" id="telefon" required class="w-full border p-2 rounded mt-1">
-                </div>
-                <div>
-                    <label class="block font-semibold">E-mel</label>
-                    <input type="email" id="emel" required class="w-full border p-2 rounded mt-1">
-                </div>
+    <!-- Info Ringkas -->
+    <section class="container mx-auto px-6 py-12 max-w-4xl">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-yellow-500">
+                <div class="text-3xl mb-2">🏃‍♂️</div>
+                <h3 class="font-bold text-lg mb-1">Kategori Larian</h3>
+                <p class="text-sm text-gray-600">5KM Fun Run & 10KM Trail Run merentas ladang.</p>
             </div>
-
-            <div>
-                <label class="block font-semibold">Pilih Pakej</label>
-                <select id="pakej" required class="w-full border p-2 rounded mt-1">
-                    <option value="">Sila Pilih Pakej</option>
-                    <option value="A">Pakej A (Baju, Medal, Bib, Sijil) - RM35</option>
-                    <option value="B">Pakej B (Medal, Bib, Sijil) - RM20</option>
-                </select>
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-green-500">
+                <div class="text-3xl mb-2">📅</div>
+                <h3 class="font-bold text-lg mb-1">Tarikh Acara</h3>
+                <p class="text-sm text-gray-600">14 November 2026 (Sabtu)<br>Flag-off: 7:00 Pagi</p>
             </div>
-
-            <div id="ruangSaiz" class="hidden">
-                <label class="block font-semibold">Saiz Baju</label>
-                <select id="saizBaju" class="w-full border p-2 rounded mt-1">
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-500">
+                <div class="text-3xl mb-2">🎁</div>
+                <h3 class="font-bold text-lg mb-1">Race Kit</h3>
+                <p class="text-sm text-gray-600">Baju Sublimation, Medal Finisher & Nanas Percuma!</p>
             </div>
+        </div>
+    </section>
 
-            <hr class="my-4">
-            <h3 class="font-semibold">Maklumat Kecemasan</h3>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm">Nama Waris</label>
-                    <input type="text" id="warisNama" required class="w-full border p-2 rounded mt-1">
-                </div>
-                <div>
-                    <label class="block text-sm">No. Telefon Waris</label>
-                    <input type="tel" id="warisTel" required class="w-full border p-2 rounded mt-1">
-                </div>
-            </div>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 text-center py-6 mt-12">
+        <p class="text-sm">&copy; 2026 PIBG SK Laka Selatan. Hak Cipta Terpelihara.</p>
+    </footer>
 
-            <div class="flex items-start mt-4">
-                <input type="checkbox" id="syarat" required class="mt-1 mr-2">
-                <label class="text-sm text-gray-600">Saya bersetuju dengan terma & syarat, dan mengaku sihat tubuh badan untuk menyertai larian ini.</label>
-            </div>
-
-            <button type="submit" id="btnSubmit" class="w-full bg-green-600 text-white font-bold py-3 rounded mt-6 hover:bg-green-700 transition">Tempah Slot Sekarang</button>
-            <p id="statusMsg" class="text-center mt-2 font-bold hidden"></p>
-        </form>
-    </div>
-
-    <!-- Modul Firebase diletakkan di hujung fail -->
-    <script type="module" src="booking.js"></script>
 </body>
 </html>
