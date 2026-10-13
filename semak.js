@@ -6,7 +6,6 @@ const btnSemak = document.getElementById('btnSemak');
 const ruangKeputusan = document.getElementById('ruangKeputusan');
 const btnTindakan = document.getElementById('btnTindakan');
 
-// Elemen Keputusan
 const resNama = document.getElementById('resNama');
 const resID = document.getElementById('resID');
 const resPakej = document.getElementById('resPakej');
@@ -23,22 +22,20 @@ form.addEventListener('submit', async (e) => {
     ruangKeputusan.classList.add('hidden');
     btnTindakan.classList.add('hidden');
 
-  try {
+    try {
         // Buat carian database berdasarkan IC
         const q = query(ref(db, 'peserta'), orderByChild('ic'), equalTo(icInput));
         
-        const snapshot = await get(q);
-        
-        const snapshot = await get(q);
+        // Pemboleh ubah diisytiharkan sekali sahaja untuk elak ralat
+        const snapshot_hasil = await get(q);
 
-        if (snapshot.exists()) {
-            // Memandangkan snapshot boleh pulangkan lebih dari satu rekod jika IC duplicate, kita ambil yang pertama
+        if (snapshot_hasil.exists()) {
             let dataPeserta;
             let idTempahanKey;
             
-            snapshot.forEach((childSnapshot) => {
-                idTempahanKey = childSnapshot.key;
-                dataPeserta = childSnapshot.val();
+            snapshot_hasil.forEach((child) => {
+                idTempahanKey = child.key;
+                dataPeserta = child.val();
             });
 
             // Papar Data Asas
@@ -67,16 +64,20 @@ function urusStatus(statusSistem, idTempahan) {
     // Reset Kelas
     resStatusBox.className = "mt-4 p-4 rounded text-center border font-bold";
     btnTindakan.classList.add('hidden');
+    
+    // Buang pautan lama jika ada
+    btnTindakan.onclick = null;
 
     switch (statusSistem) {
         case "PENDING_PAYMENT":
             resStatusBox.classList.add("bg-yellow-100", "text-yellow-800", "border-yellow-300");
             resStatusText.innerText = "MENUNGGU PEMBAYARAN";
             
-            // Munculkan butang untuk ke laman upload resit
+            // FUNGSI INI MEMBOLEHKAN PESERTA KEMBALI UPLOAD RESIT
             btnTindakan.innerText = "Muat Naik Resit Sekarang";
             btnTindakan.className = "w-full bg-yellow-500 text-white font-bold py-2 rounded mt-4 hover:bg-yellow-600 transition block";
             btnTindakan.onclick = () => window.location.href = `upload.html?id=${idTempahan}`;
+            btnTindakan.classList.remove('hidden');
             break;
 
         case "PENDING_VERIFICATION":
