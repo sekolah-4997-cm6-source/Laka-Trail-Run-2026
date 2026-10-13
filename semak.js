@@ -9,6 +9,7 @@ const btnTindakan = document.getElementById('btnTindakan');
 const resNama = document.getElementById('resNama');
 const resID = document.getElementById('resID');
 const resPakej = document.getElementById('resPakej');
+const senaraiPakej = document.getElementById('senaraiPakej'); // Elemen senarai baru
 const resStatusBox = document.getElementById('resStatusBox');
 const resStatusText = document.getElementById('resStatusText');
 
@@ -23,10 +24,7 @@ form.addEventListener('submit', async (e) => {
     btnTindakan.classList.add('hidden');
 
     try {
-        // Buat carian database berdasarkan IC
         const q = query(ref(db, 'peserta'), orderByChild('ic'), equalTo(icInput));
-        
-        // Pemboleh ubah diisytiharkan sekali sahaja untuk elak ralat
         const snapshot_hasil = await get(q);
 
         if (snapshot_hasil.exists()) {
@@ -42,6 +40,20 @@ form.addEventListener('submit', async (e) => {
             resNama.innerText = dataPeserta.nama;
             resID.innerText = idTempahanKey;
             resPakej.innerText = `Pakej ${dataPeserta.pakej} ` + (dataPeserta.saizBaju !== 'Tiada' ? `(Saiz: ${dataPeserta.saizBaju})` : "");
+
+            // LOGIK SENARAI BARANGAN MENGIKUT PAKEJ
+            let htmlSenarai = "";
+            if (dataPeserta.pakej === 'A') {
+                htmlSenarai += "<li><strong>Jersi Sublimation</strong></li>";
+            }
+            // Barangan wajib untuk Pakej A & B
+            htmlSenarai += "<li>Nombor Bib</li>";
+            htmlSenarai += "<li>Kupon RM10</li>";
+            htmlSenarai += "<li>Medal Finisher <span class='text-xs text-gray-500 italic'>(diberikan selepas menamatkan larian)</span></li>";
+            htmlSenarai += "<li>Sijil <span class='text-xs text-gray-500 italic'>(diberikan seminggu selepas pertandingan)</span></li>";
+            
+            // Masukkan HTML ke dalam ul
+            senaraiPakej.innerHTML = htmlSenarai;
 
             // Menguruskan Warna dan Mesej Status
             urusStatus(dataPeserta.status, idTempahanKey);
@@ -62,7 +74,7 @@ form.addEventListener('submit', async (e) => {
 
 function urusStatus(statusSistem, idTempahan) {
     // Reset Kelas
-    resStatusBox.className = "mt-4 p-4 rounded text-center border font-bold";
+    resStatusBox.className = "mt-4 p-4 rounded text-center border font-bold shadow-sm";
     btnTindakan.classList.add('hidden');
     
     // Buang pautan lama jika ada
@@ -73,9 +85,8 @@ function urusStatus(statusSistem, idTempahan) {
             resStatusBox.classList.add("bg-yellow-100", "text-yellow-800", "border-yellow-300");
             resStatusText.innerText = "MENUNGGU PEMBAYARAN";
             
-            // FUNGSI INI MEMBOLEHKAN PESERTA KEMBALI UPLOAD RESIT
             btnTindakan.innerText = "Muat Naik Resit Sekarang";
-            btnTindakan.className = "w-full bg-yellow-500 text-white font-bold py-2 rounded mt-4 hover:bg-yellow-600 transition block";
+            btnTindakan.className = "w-full bg-yellow-500 text-white font-bold py-3 rounded mt-4 hover:bg-yellow-600 transition shadow-md block";
             btnTindakan.onclick = () => window.location.href = `upload.html?id=${idTempahan}`;
             btnTindakan.classList.remove('hidden');
             break;
