@@ -6,7 +6,7 @@ const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHV
 
 const tableBody = document.getElementById('tableBody');
 
-// 1. Sistem Keselamatan Asas (Untuk elak orang awam masuk)
+// 1. Sistem Keselamatan Asas
 const kataLaluan = prompt("Sila masukkan kata laluan urusetia:");
 if (kataLaluan !== "nanas2026") {
     alert("Akses Ditolak!");
@@ -18,11 +18,10 @@ if (kataLaluan !== "nanas2026") {
 // 2. Tarik Data dari Firebase
 async function muatDataPending() {
     try {
-        // Cari rekod yang statusnya PENDING_VERIFICATION
         const q = query(ref(db, 'peserta'), orderByChild('status'), equalTo('PENDING_VERIFICATION'));
         const snapshot = await get(q);
         
-        tableBody.innerHTML = ""; // Kosongkan jadual
+        tableBody.innerHTML = ""; 
 
         if (!snapshot.exists()) {
             tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-gray-500 font-bold">Tiada resit baharu untuk disahkan. 🎉</td></tr>`;
@@ -36,6 +35,7 @@ async function muatDataPending() {
             const tr = document.createElement('tr');
             tr.className = "border-b border-gray-200 hover:bg-gray-50";
             
+            // PENAMBAHBAIKAN: Masukkan data.pakej ke dalam fungsi luluskan()
             tr.innerHTML = `
                 <td class="py-4 px-6 text-left whitespace-nowrap">
                     <span class="font-bold text-blue-700 block">${id}</span>
@@ -45,11 +45,11 @@ async function muatDataPending() {
                 <td class="py-4 px-6 text-left">
                     Ref: <span class="font-bold">${data.refNo}</span><br>
                     <span class="text-xs text-gray-600">${data.tarikhBayaran} @ ${data.masaBayaran}</span><br>
-                    <a href="https://docs.google.com/spreadsheets/d/1x3v_jWGqsIs_n3KF3eVnwjYGEZAE-7kc9TSVyAgmQCI/edit" target="_blank" class="text-xs text-blue-600 hover:underline">Sahkan di Google Sheets / Drive</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1x3v_jWGqsIs_n3KF3eVnwjYGEZAE-7kc9TSVyAgmQCI/edit" target="_blank" class="text-xs text-blue-600 hover:underline">Sahkan di Google Sheets</a>
                 </td>
                 <td class="py-4 px-6 text-center">
                     <div class="flex item-center justify-center space-x-2">
-                        <button onclick="luluskan('${id}', '${data.nama}', '${data.emel}')" class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 font-bold transition">Lulus</button>
+                        <button onclick="luluskan('${id}', '${data.nama}', '${data.emel}', '${data.pakej}')" class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 font-bold transition">Lulus</button>
                         <button onclick="tolak('${id}', '${data.nama}', '${data.emel}')" class="bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 font-bold transition">Tolak</button>
                     </div>
                 </td>
@@ -58,14 +58,14 @@ async function muatDataPending() {
         });
     } catch (error) {
         console.error(error);
-        tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-red-500">Ralat memuatkan data. Sila semak aturan index Firebase.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-red-500">Ralat memuatkan data. Sila semak pangkalan data.</td></tr>`;
     }
 }
 
 // 3. Fungsi Lulus & Hantar E-Tiket
-window.luluskan = async (id, nama, emel) => {
+window.luluskan = async (id, nama, emel, pakej) => {
     const noBib = prompt(`Masukkan Nombor BIB larian untuk ${nama}:\n(Cth: 5KM-001)`);
-    if (!noBib) return; // Terbatal jika biarkan kosong
+    if (!noBib) return; 
 
     const sah = confirm(`Pasti untuk LULUSKAN ${nama}?\nBIB: ${noBib}\nE-Tiket akan dihantar terus ke ${emel}.`);
     if (!sah) return;
@@ -77,12 +77,20 @@ window.luluskan = async (id, nama, emel) => {
             bib: noBib
         });
 
-        // Arahkan GAS hantar emel tanpa buat browser loading lama
-        const payload = { action: 'hantar_keputusan', status: 'LULUS', id: id, nama: nama, emel: emel, bib: noBib };
-        fetch(gasURL, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+        // PENAMBAHBAIKAN: Gunakan 'lulus_resit' dan hantar data pakej
+        const payloadGAS = { 
+            action: 'lulus_resit', 
+            id: id, 
+            nama: nama, 
+            emel: emel, 
+            bib: noBib,
+            pakej: pakej 
+        };
+        
+        fetch(gasURL, { method: 'POST', body: JSON.stringify(payloadGAS), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
 
-        alert(`✅ Berjaya diluluskan! E-Tiket rasmi sedang dihantar ke ${emel}.`);
-        muatDataPending(); // Muat semula jadual
+        alert(`✅ Berjaya diluluskan! E-Tiket rasmi sedang dihantar ke ${emel} dan rekod Sheets sedang dikemas kini.`);
+        muatDataPending(); 
 
     } catch (error) {
         alert("Ralat kemas kini: " + error.message);
@@ -91,7 +99,7 @@ window.luluskan = async (id, nama, emel) => {
 
 // 4. Fungsi Tolak
 window.tolak = async (id, nama, emel) => {
-    const sah = confirm(`Pasti untuk TOLAK resit ${nama}?\nEmel pembatalan akan dihantar.`);
+    const sah = confirm(`Pasti untuk TOLAK resit ${nama}?\nSistem akan dikemas kini.`);
     if (!sah) return;
 
     try {
@@ -99,10 +107,7 @@ window.tolak = async (id, nama, emel) => {
             status: "REJECTED"
         });
 
-        const payload = { action: 'hantar_keputusan', status: 'TOLAK', id: id, nama: nama, emel: emel };
-        fetch(gasURL, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
-
-        alert(`❌ Resit ditolak. Mesej pembatalan sedang dihantar ke ${emel}.`);
+        alert(`❌ Pendaftaran ditolak.`);
         muatDataPending(); 
     } catch (error) {
         alert("Ralat kemas kini: " + error.message);
