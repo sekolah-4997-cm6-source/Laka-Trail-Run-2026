@@ -87,15 +87,20 @@ window.luluskan = async (id, nama, emel, pakej) => {
             pakej: pakej 
         };
         
-        fetch(gasURL, { method: 'POST', body: JSON.stringify(payloadGAS), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
-
-        alert(`✅ Berjaya diluluskan! E-Tiket rasmi sedang dihantar ke ${emel} dan rekod Sheets sedang dikemas kini.`);
-        muatDataPending(); 
-
-    } catch (error) {
-        alert("Ralat kemas kini: " + error.message);
-    }
-};
+        // Gantikan baris fetch(gasURL...) yang sedia ada kepada kod ini:
+fetch(gasURL, { 
+    method: 'POST', 
+    body: JSON.stringify(payloadGAS), 
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+})
+.then(response => response.json())
+.then(data => {
+    console.log("Respon dari Pelayan Google:", data);
+})
+.catch(error => {
+    alert("Gagal menghubungi Google Apps Script. Sila semak URL GAS anda.");
+    console.error("Ralat GAS:", error);
+});
 
 // 4. Fungsi Tolak
 window.tolak = async (id, nama, emel) => {
