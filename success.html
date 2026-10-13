@@ -3,26 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tempahan Berjaya - Laka Selatan Nanas Run 2026</title>
+    <title>Pendaftaran Berjaya - Laka Selatan Nanas Run</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 flex items-center justify-center min-h-screen">
-    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg text-center">
-        <div class="text-green-600 text-5xl mb-4">✅</div>
-        <h2 class="text-2xl font-bold mb-2">Tempahan Slot Berjaya!</h2>
-        <p class="text-gray-600 mb-4">Sila buat pembayaran dalam masa 24 jam untuk mengelakkan pembatalan automatik.</p>
+<body class="bg-gray-50 text-gray-800 text-center p-6">
+    <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
+        <div class="text-green-500 mb-4">
+            <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h1 class="text-3xl font-bold text-green-600 mb-2">Tempahan Berjaya!</h1>
+        <p class="mb-2 text-gray-600">Sila simpan ID Tempahan di bawah untuk rujukan anda.</p>
         
-        <div class="bg-gray-100 p-4 rounded mb-6">
-            <p class="text-sm font-semibold text-gray-500 uppercase">ID Tempahan Anda</p>
-            <p id="displayId" class="text-3xl font-black text-gray-800 my-2">LAKA-XXXX</p>
+        <div class="bg-gray-100 p-4 rounded-lg my-6 border border-gray-200">
+            <h2 id="displayId" class="text-4xl font-black text-gray-800 tracking-widest">MEMUATKAN...</h2>
         </div>
-
-        <div class="border-2 border-dashed border-gray-300 p-4 rounded mb-6">
-            <h3 class="font-bold text-lg mb-2">Maklumat Pembayaran</h3>
-            <p class="text-sm">Bank: <strong>Maybank (PIBG SK Laka Selatan)</strong></p>
-            <p class="text-sm">No. Akaun: <strong>5521 2345 6789</strong></p>
-            <p class="text-sm mt-2 text-red-600 font-semibold">* Sila simpan resit transaksi anda.</p>
-        </div>
-
-        <button id="btnUpload" class="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 transition">
+        
+        <p class="text-sm text-gray-500 mb-6">Anda boleh terus memuat naik bukti pembayaran sekarang atau melakukannya kemudian di Portal Semakan Status.</p>
+        
+        <!-- Butang Muat Naik -->
+        <a href="#" id="btnUpload" class="block w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition mb-4 shadow-md">
             Muat Naik Resit Sekarang
+        </a>
+        
+        <a href="index.html" class="block w-full bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition">
+            Kembali ke Laman Utama
+        </a>
+    </div>
+
+    <!-- Skrip untuk menangkap ID dan memasukkannya ke dalam butang -->
+    <script>
+        // Dapatkan parameter 'id' dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const idTempahan = urlParams.get('id');
+
+        if (idTempahan) {
+            // Paparkan ID di skrin
+            document.getElementById('displayId').innerText = idTempahan;
+            
+            // Kemas kini pautan butang supaya membawa ID bersama
+            document.getElementById('btnUpload').href = `upload.html?id=${idTempahan}`;
+        } else {
+            // Halang akses jika tiada ID
+            alert("Ralat: ID Tempahan tidak dijumpai.");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
