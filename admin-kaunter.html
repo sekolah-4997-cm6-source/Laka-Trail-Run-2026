@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaunter Serahan - Laka Selatan Nanas Run 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <nav class="bg-purple-900 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Kaunter Race Kit Nanas Run</h1>
+            <a href="index.html" class="text-sm bg-purple-700 hover:bg-purple-800 px-3 py-1 rounded transition">Kembali</a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8 p-4 max-w-lg">
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <h2 class="text-xl font-bold mb-4 text-gray-700">Carian Peserta</h2>
+            
+            <form id="kaunterForm" class="space-y-4">
+                <input type="text" id="icCarian" required placeholder="Masukkan No. Kad Pengenalan" class="w-full border p-3 rounded bg-gray-50 text-center text-lg font-bold tracking-widest focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                <button type="submit" id="btnCari" class="w-full bg-purple-600 text-white font-bold py-3 rounded hover:bg-purple-700 transition shadow-md">
+                    Cari Peserta
+                </button>
+            </form>
+        </div>
+
+        <!-- Ruang Keputusan -->
+        <div id="ruangKeputusan" class="hidden mt-6 bg-white rounded-lg shadow-lg p-6">
+            <div class="border-b pb-4 mb-4 text-center">
+                <h3 class="text-2xl font-black text-gray-800" id="resNama">NAMA PESERTA</h3>
+                <p class="text-gray-500 font-semibold" id="resBib">BIB: -</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 text-center mb-6">
+                <div class="bg-gray-50 p-3 rounded border">
+                    <p class="text-xs text-gray-500 uppercase">Pakej</p>
+                    <p class="font-bold text-lg" id="resPakej">A</p>
+                </div>
+                <div class="bg-gray-50 p-3 rounded border">
+                    <p class="text-xs text-gray-500 uppercase">Saiz Baju</p>
+                    <p class="font-bold text-lg text-blue-600" id="resSaiz">XL</p>
+                </div>
+            </div>
+
+            <div id="statusBox" class="p-4 rounded text-center font-bold mb-4 border">
+                <span id="statusText">STATUS</span>
+            </div>
+
+            <button id="btnTuntut" class="hidden w-full bg-green-500 text-white font-bold py-3 rounded hover:bg-green-600 transition shadow-md">
+                Sahkan Tuntutan Race Kit
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="admin-kaunter.js"></script>
+</body>
+</html>
