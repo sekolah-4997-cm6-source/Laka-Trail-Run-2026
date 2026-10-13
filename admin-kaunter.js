@@ -83,13 +83,31 @@ btnTuntut.addEventListener('click', async () => {
     if (!sah) return;
 
     btnTuntut.disabled = true;
-    btnTuntut.innerText = "Menyimpan...";
+    btnTuntut.innerText = "Menyimpan ke Database & Sheets...";
 
     try {
+        // 1. Kemas kini Firebase Realtime Database
         await update(ref(db, 'peserta/' + idSemasa), {
             status: "COLLECTED"
         });
-        alert("Berjaya! Rekod telah dikemas kini.");
+        
+        // 2. Hantar arahan ke Google Apps Script (Untuk kemas kini Sheets)
+        const payloadGAS = {
+            action: 'tuntut_racekit',
+            id: idSemasa
+        };
+        
+        // MASUKKAN WEB APP URL (YANG BERAKHIR DENGAN /exec) ANDA DI SINI
+        const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHVyjID9pbW2y0PLnkgjCMyFlkT8PCeluuEhqgKXvCAuV5/exec";
+        
+        // Fire and forget ke GAS (biar server Google buat kerja di belakang tabir)
+        fetch(gasURL, {
+            method: 'POST',
+            body: JSON.stringify(payloadGAS),
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+        });
+
+        alert("Berjaya! Rekod telah dikemas kini di Sistem dan Google Sheets.");
         
         // Kemas kini paparan UI serta merta
         urusStatusKaunter("COLLECTED");
