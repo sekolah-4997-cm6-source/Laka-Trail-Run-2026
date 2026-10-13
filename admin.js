@@ -35,7 +35,6 @@ async function muatDataPending() {
             const tr = document.createElement('tr');
             tr.className = "border-b border-gray-200 hover:bg-gray-50";
             
-            // PENAMBAHBAIKAN: Masukkan data.pakej ke dalam fungsi luluskan()
             tr.innerHTML = `
                 <td class="py-4 px-6 text-left whitespace-nowrap">
                     <span class="font-bold text-blue-700 block">${id}</span>
@@ -77,7 +76,7 @@ window.luluskan = async (id, nama, emel, pakej) => {
             bib: noBib
         });
 
-        // PENAMBAHBAIKAN: Gunakan 'lulus_resit' dan hantar data pakej
+        // Hantar ke GAS
         const payloadGAS = { 
             action: 'lulus_resit', 
             id: id, 
@@ -87,20 +86,27 @@ window.luluskan = async (id, nama, emel, pakej) => {
             pakej: pakej 
         };
         
-        // Gantikan baris fetch(gasURL...) yang sedia ada kepada kod ini:
-fetch(gasURL, { 
-    method: 'POST', 
-    body: JSON.stringify(payloadGAS), 
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
-})
-.then(response => response.json())
-.then(data => {
-    console.log("Respon dari Pelayan Google:", data);
-})
-.catch(error => {
-    alert("Gagal menghubungi Google Apps Script. Sila semak URL GAS anda.");
-    console.error("Ralat GAS:", error);
-});
+        fetch(gasURL, { 
+            method: 'POST', 
+            body: JSON.stringify(payloadGAS), 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respon dari Pelayan Google:", data);
+        })
+        .catch(error => {
+            alert("Gagal menghubungi Google Apps Script. Sila semak URL GAS anda.");
+            console.error("Ralat GAS:", error);
+        });
+
+        alert(`✅ Berjaya diluluskan! E-Tiket rasmi sedang dihantar ke ${emel} dan rekod Sheets sedang dikemas kini.`);
+        muatDataPending(); 
+
+    } catch (error) {
+        alert("Ralat kemas kini: " + error.message);
+    }
+};
 
 // 4. Fungsi Tolak
 window.tolak = async (id, nama, emel) => {
