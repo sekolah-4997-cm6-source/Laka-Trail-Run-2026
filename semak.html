@@ -6,44 +6,50 @@
     <title>Semakan Status - Laka Selatan Nanas Run 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 flex flex-col items-center min-h-screen pt-12">
-    
-    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold text-center text-green-700 mb-6">Semakan Pendaftaran</h2>
-        
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg text-center">
+        <h2 class="text-2xl font-bold text-blue-700 mb-2">Semakan Status Pendaftaran</h2>
+        <p class="text-gray-600 mb-6">Masukkan No. Kad Pengenalan anda untuk menyemak status.</p>
+
         <form id="semakForm" class="space-y-4">
-            <div>
-                <label class="block font-semibold mb-1 text-gray-700">No. Kad Pengenalan</label>
-                <input type="text" id="icSemak" required placeholder="Cth: 901201025544" class="w-full border p-3 rounded bg-gray-50 focus:ring-2 focus:ring-green-500 focus:outline-none">
-            </div>
-            <button type="submit" id="btnSemak" class="w-full bg-green-600 text-white font-bold py-3 rounded hover:bg-green-700 transition shadow-md">
-                Semak Status
-            </button>
+            <input type="text" id="icSemak" required placeholder="Cth: 901201025544" class="w-full border p-3 rounded text-center text-lg font-bold tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button type="submit" id="btnSemak" class="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 transition shadow-md">Semak Status</button>
         </form>
 
-        <!-- Keputusan Carian -->
-        <div id="ruangKeputusan" class="hidden mt-8 border-t pt-6">
-            <h3 class="font-bold text-lg text-gray-800 mb-4">Keputusan Semakan:</h3>
+        <!-- Ruang Keputusan -->
+        <div id="ruangKeputusan" class="hidden mt-8 border-t pt-6 text-left">
+            <h3 class="text-xl font-black text-gray-800 uppercase" id="resNama">NAMA</h3>
+            <p class="text-gray-500 text-sm mb-4">ID Tempahan: <span id="resID" class="font-semibold text-gray-700">LAKA-0000</span></p>
             
-            <div class="space-y-3 text-sm">
-                <p><strong>Nama:</strong> <span id="resNama" class="text-gray-600">-</span></p>
-                <p><strong>ID Tempahan:</strong> <span id="resID" class="text-gray-600">-</span></p>
-                <p><strong>Pakej:</strong> <span id="resPakej" class="text-gray-600">-</span></p>
-                
-                <div class="mt-4 p-4 rounded text-center border font-bold" id="resStatusBox">
-                    <span id="resStatusText">STATUS SINI</span>
-                </div>
+            <p class="font-semibold text-gray-700 mb-1" id="resPakej">Pakej A (Saiz: XL)</p>
+            
+            <div id="resStatusBox" class="mt-4 p-4 rounded text-center border font-bold shadow-sm">
+                <span id="resStatusText">STATUS</span>
             </div>
-
-            <!-- Butang Tindakan Khas (Muncul ikut status) -->
-            <button id="btnTindakan" class="hidden w-full text-white font-bold py-2 rounded mt-4 transition"></button>
+            
+            <button id="btnTindakan" class="hidden"></button>
         </div>
         
-        <div class="text-center mt-6">
-            <a href="index.html" class="text-sm text-green-600 hover:underline">← Kembali ke Laman Utama</a>
+        <!-- Makluman Race Kit -->
+        <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded shadow-sm text-left">
+            <h3 class="font-bold text-blue-800 mb-2 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Makluman Tuntutan Race Kit
+            </h3>
+            <p class="text-sm text-blue-700 mb-2">Sila tuntut Race Kit (Baju & Bib) anda mengikut ketetapan masa berikut:</p>
+            <ul class="list-disc list-inside text-sm text-blue-800 font-semibold ml-1 space-y-1">
+                <li>12 November 2026 (Khamis): <span class="text-blue-600">2:00 PTG - 5:00 PTG</span></li>
+                <li>13 November 2026 (Jumaat): <span class="text-blue-600">8:00 PAGI - 11:00 PAGI</span></li>
+            </ul>
+            <p class="text-xs text-blue-600 mt-3 italic">*Sila tunjukkan status pengesahan dari sistem ini atau e-mel E-Tiket anda di kaunter serahan nanti.</p>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="index.html" class="text-sm font-semibold text-gray-500 hover:text-gray-700 transition hover:underline">← Kembali ke Laman Utama</a>
         </div>
     </div>
 
+    <!-- Skrip untuk menyambung UI dengan Firebase -->
     <script type="module" src="semak.js"></script>
 </body>
 </html>
