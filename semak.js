@@ -23,10 +23,11 @@ form.addEventListener('submit', async (e) => {
     ruangKeputusan.classList.add('hidden');
     btnTindakan.classList.add('hidden');
 
-    try {
+  try {
         // Buat carian database berdasarkan IC
-        const pesertaRef = collectionRef(db, 'peserta');
         const q = query(ref(db, 'peserta'), orderByChild('ic'), equalTo(icInput));
+        
+        const snapshot = await get(q);
         
         const snapshot = await get(q);
 
