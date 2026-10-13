@@ -2,7 +2,7 @@ import { db } from './firebase-config.js';
 import { ref, query, orderByChild, equalTo, get, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
 // !!! PENTING: GANTIKAN DENGAN URL GAS DARI FASA 4 !!!
-const gasURL = "https://script.google.com/macros/s/MASUKKAN_URL_ANDA_DI_SINI/exec";
+const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHVyjID9pbW2y0PLnkgjCMyFlkT8PCeluuEhqgKXvCAuV5/exec";
 
 const tableBody = document.getElementById('tableBody');
 
