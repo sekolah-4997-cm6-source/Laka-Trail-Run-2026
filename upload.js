@@ -113,7 +113,7 @@ form.addEventListener('submit', async (e) => {
         };
         
         // MASUKKAN WEB APP URL ANDA DI BAWAH INI
-        const gasURL = "https://script.google.com/home/projects/1JAeZTev5X8P_Zr2wZMExanwIEDGEp8XDjBwajdWXHMqht2-pdILqF3_T/edit";
+        const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHVyjID9pbW2y0PLnkgjCMyFlkT8PCeluuEhqgKXvCAuV5/exec";
         
         // Hantar ke Google Apps Script tanpa menunggu respon (Fire and forget) untuk elak browser 'hang'
         fetch(gasURL, {
