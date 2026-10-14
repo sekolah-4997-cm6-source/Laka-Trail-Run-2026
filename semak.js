@@ -48,7 +48,7 @@ form.addEventListener('submit', async (e) => {
             }
             // Barangan wajib untuk Pakej A & B
             htmlSenarai += "<li>Nombor Bib</li>";
-            htmlSenarai += "<li>Kupon RM10 <span class='text-xs text-gray-500 italic'>(untuk digunakan dalam program Laka Havoc Fest 2026)</span></li></li>";
+            htmlSenarai += "<li>Kupon RM10 <span class='text-xs text-gray-500 italic'>(untuk digunakan dalam program Laka Havoc Fest 2026)</span></li>";
             htmlSenarai += "<li>Medal Finisher <span class='text-xs text-gray-500 italic'>(diberikan selepas menamatkan larian)</span></li>";
             htmlSenarai += "<li>Sijil <span class='text-xs text-gray-500 italic'>(diberikan seminggu selepas pertandingan)</span></li>";
             
