@@ -3,64 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laka Selatan 5K Trail Run 2026</title>
+    <title>Laka Selatan Nanas Run 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Fon Bertema Sukan (Dinamik & Pantas) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,800;1,900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-sports { font-family: 'Montserrat', sans-serif; }
+        
+        /* Corak Latar Belakang Geometri Halus */
+        .bg-pattern {
+            background-color: #047857; /* Green-700 */
+            background-image: radial-gradient(#065f46 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800 antialiased overflow-x-hidden">
+
+    <!-- Notifikasi Toast (Tersembunyi pada awalnya) -->
+    <div id="toastNotif" class="fixed top-5 right-5 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-x-full opacity-0 transition-all duration-300 z-50 flex items-center">
+        <span class="text-yellow-400 mr-2 text-xl">🍍</span>
+        <span id="toastMsg" class="font-semibold text-sm">Pautan berjaya disalin!</span>
+    </div>
 
     <!-- Navigasi -->
-    <nav class="bg-green-700 text-white p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold tracking-wider">🍍 Laka 5K Trail Run '26</h1>
-            <a href="admin.html" class="text-sm bg-green-800 hover:bg-green-900 px-3 py-1 rounded transition">Log Masuk Urusetia</a>
+    <nav class="bg-white/90 backdrop-blur-md fixed w-full z-40 shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-sports font-black italic text-green-700 tracking-tight">
+                NANAS<span class="text-yellow-500">RUN'26</span>
+            </h1>
+            <div class="flex items-center space-x-4">
+                <button onclick="tunjukToast('Pautan acara disalin ke papan keratan!')" class="text-gray-500 hover:text-green-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                </button>
+                <a href="admin.html" class="text-xs md:text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold px-4 py-2 rounded-full transition">Portal Urusetia</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-6 py-16 text-center max-w-3xl">
-            <h2 class="text-4xl font-black text-gray-900 mb-4">Laka Selatan 5K Trail Run 2026</h2>
-            <p class="text-lg text-gray-600 mb-8">Sertai larian merentas ladang nanas terbesar di utara! Semak pendaftaran dan muat naik bukti pembayaran anda di portal rasmi ini.</p>
+    <!-- Hero Section (Dinamik & Sporty) -->
+    <header class="bg-pattern relative pt-28 pb-32 overflow-hidden clip-path-hero">
+        <!-- Hiasan Bentuk Serong -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-yellow-500 text-yellow-900 text-xs font-bold uppercase tracking-widest mb-4">
+                Pendaftaran Kini Dibuka
+            </span>
+            <h2 class="text-5xl md:text-7xl font-sports font-black italic text-white mb-2 leading-tight uppercase transform -skew-x-6">
+                Laka Selatan <br> <span class="text-yellow-400">Nanas Run</span> 2026
+            </h2>
+            <p class="text-lg md:text-xl text-green-100 mb-10 max-w-2xl mx-auto font-medium">
+                Sertai larian merentas ladang nanas terbesar di utara. Alami cabaran alam semula jadi dan nikmati kemanisan kemenangan!
+            </p>
             
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <!-- Butang Daftar (Boleh pautkan ke borang pendaftaran Firebase anda atau Google Form jika ada) -->
-                <a href="daftar.html" class="bg-yellow-500 text-yellow-900 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-400 transition cursor-pointer">
-                    Daftar Sekarang
+                <a href="daftar.html" class="bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
+                    DAFTAR SEKARANG
                 </a>
-                
-                <!-- Butang Semak -->
-                <a href="semak.html" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition">
-                    Semak Status Pendaftaran
+                <a href="semak.html" class="bg-white text-green-700 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(209,213,219)] hover:translate-y-1 hover:shadow-none hover:bg-gray-50 transition-all duration-200 border-2 border-transparent">
+                    SEMAK STATUS
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Info Ringkas -->
-    <section class="container mx-auto px-6 py-12 max-w-4xl">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-yellow-500">
-                <div class="text-3xl mb-2">🏃‍♂️</div>
-                <h3 class="font-bold text-lg mb-1">Kategori Larian</h3>
-                <p class="text-sm text-gray-600">5KM Trail Run merentas ladang nenas.</p>
+    <!-- Bar Statistik Langsung & Countdown (Terapung) -->
+    <div class="container mx-auto px-6 max-w-5xl -mt-16 relative z-20">
+        <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-8 border-b-4 border-yellow-400">
+            
+            <!-- Statistik -->
+            <div class="flex items-center space-x-8">
+                <div class="text-center">
+                    <p class="text-sm text-gray-500 font-bold uppercase">Peserta Terkini</p>
+                    <p class="text-4xl font-sports font-black italic text-gray-900" id="statPeserta">0</p>
+                </div>
+                <div class="h-12 w-px bg-gray-200"></div>
+                <div class="text-center">
+                    <p class="text-sm text-gray-500 font-bold uppercase">Slot Berbaki</p>
+                    <p class="text-4xl font-sports font-black italic text-green-600" id="statSlot">0</p>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-green-500">
-                <div class="text-3xl mb-2">📅</div>
-                <h3 class="font-bold text-lg mb-1">Tarikh Acara</h3>
-                <p class="text-sm text-gray-600">14 November 2026 (Sabtu)<br>Flag-off: 7:45 Pagi</p>
+
+            <!-- Kaunter Detik -->
+            <div class="w-full md:w-auto">
+                <p class="text-xs text-center md:text-left text-gray-500 font-bold uppercase mb-2">Acara Bermula Dalam:</p>
+                <div class="flex justify-center md:justify-end gap-3 text-center">
+                    <div class="bg-gray-100 rounded-lg p-2 w-16 shadow-inner">
+                        <span id="hari" class="block text-2xl font-sports font-black text-gray-800">00</span>
+                        <span class="text-[10px] text-gray-500 uppercase font-bold">Hari</span>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-2 w-16 shadow-inner">
+                        <span id="jam" class="block text-2xl font-sports font-black text-gray-800">00</span>
+                        <span class="text-[10px] text-gray-500 uppercase font-bold">Jam</span>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-2 w-16 shadow-inner">
+                        <span id="minit" class="block text-2xl font-sports font-black text-gray-800">00</span>
+                        <span class="text-[10px] text-gray-500 uppercase font-bold">Minit</span>
+                    </div>
+                    <div class="bg-yellow-100 rounded-lg p-2 w-16 shadow-inner border border-yellow-300">
+                        <span id="saat" class="block text-2xl font-sports font-black text-yellow-700 animate-pulse">00</span>
+                        <span class="text-[10px] text-yellow-700 uppercase font-bold">Saat</span>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-500">
-                <div class="text-3xl mb-2">🎁</div>
-                <h3 class="font-bold text-lg mb-1">Race Kit</h3>
-                <p class="text-sm text-gray-600">Baju Sublimation, Medal Finisher, Nombor Bip Custom, Sijil Peringkat Negeri, Kupon Bernilai RM 10!</p>
+
+        </div>
+    </div>
+
+    <!-- Info Ringkas (3 Kotak Utama) -->
+    <section class="container mx-auto px-6 py-20 max-w-6xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-sports font-black italic text-gray-900 uppercase">Maklumat Acara</h2>
+            <div class="w-24 h-1 bg-yellow-400 mx-auto mt-4 rounded"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Box 1 -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-12 transition transform">🏃‍♂️</div>
+                <h3 class="font-sports font-black text-xl mb-2 text-gray-800">Kategori Larian</h3>
+                <p class="text-gray-600">5KM Trail Run merentas ladang nanas dan laluan alam semula jadi yang mencabar namun mendamaikan.</p>
+            </div>
+            <!-- Box 2 -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-12 transition transform">📅</div>
+                <h3 class="font-sports font-black text-xl mb-2 text-gray-800">Tarikh Acara</h3>
+                <p class="text-gray-600">14 November 2026 (Sabtu)<br><span class="font-bold text-gray-800 mt-2 block">Flag-off: 7:45 Pagi</span></p>
+            </div>
+            <!-- Box 3 -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-12 transition transform">🎁</div>
+                <h3 class="font-sports font-black text-xl mb-2 text-gray-800">Race Kit Premium</h3>
+                <p class="text-gray-600">Terima Jersi Sublimation, Medal Finisher eksklusif, Nombor Bib, Sijil, dan Kupon tunai RM10!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soalan Lazim (FAQ) Accordion -->
+    <section class="bg-gray-100 py-20">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-sports font-black italic text-gray-900 uppercase">Soalan Lazim (FAQ)</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Soalan 1 -->
+                <details class="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden" open>
+                    <summary class="flex justify-between items-center cursor-pointer font-bold p-5 text-gray-800 hover:bg-gray-50 transition">
+                        Bila dan di mana saya boleh ambil Race Kit?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="p-5 bg-white border-t border-gray-100 text-gray-600 text-sm leading-relaxed">
+                        Pengambilan Race Kit akan diadakan pada 12 November (2 PTG - 5 PTG) dan 13 November (8 PAGI - 11 PAGI). Sila bawa e-mel E-Tiket anda sebagai bukti.
+                    </div>
+                </details>
+
+                <!-- Soalan 2 -->
+                <details class="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center cursor-pointer font-bold p-5 text-gray-800 hover:bg-gray-50 transition">
+                        Adakah terdapat cut-off time (had masa) untuk 5KM?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="p-5 bg-white border-t border-gray-100 text-gray-600 text-sm leading-relaxed">
+                        Had masa rasmi adalah 2 Jam dari waktu flag-off. Ini memberi masa yang sangat cukup untuk anda berlari secara santai mahupun berjalan menikmati pemandangan.
+                    </div>
+                </details>
+
+                <!-- Soalan 3 -->
+                <details class="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center cursor-pointer font-bold p-5 text-gray-800 hover:bg-gray-50 transition">
+                        Bolehkah saya menukar saiz baju selepas mendaftar?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="p-5 bg-white border-t border-gray-100 text-gray-600 text-sm leading-relaxed">
+                        Maaf, saiz baju tidak boleh ditukar selepas pendaftaran disahkan kerana tempahan dibuat mengikut data yang dimasukkan. Sila rujuk carta saiz sebelum mendaftar.
+                    </div>
+                </details>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-400 text-center py-6 mt-12">
-        <p class="text-sm">&copy; 2026 SK Felda Laka Selatan. Hak Cipta Terpelihara.</p>
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-sports font-black italic text-gray-600 mb-4">LAKA SELATAN NANAS RUN</h2>
+            <p class="text-sm mb-6 max-w-md mx-auto">Satu inisiatif gaya hidup sihat sambil mempromosikan ekopelancongan Laka Selatan, Bukit Kayu Hitam.</p>
+            <p class="text-xs">&copy; 2026 SK Felda Laka Selatan. Hak Cipta Terpelihara.</p>
+        </div>
     </footer>
 
+    <!-- Skrip Dinamik (Countdown, Animasi Nombor & Toast) -->
+    <script>
+        // 1. KIRAAN DETIK (COUNTDOWN) - Sasaran: 14 Nov 2026, 07:45 Pagi
+        const tarikhAcara = new Date("Nov 14, 2026 07:45:00").getTime();
+
+        const x = setInterval(function() {
+            const sekarang = new Date().getTime();
+            const jarakMasa = tarikhAcara - sekarang;
+
+            if (jarakMasa > 0) {
+                document.getElementById("hari").innerText = Math.floor(jarakMasa / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("jam").innerText = Math.floor((jarakMasa % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minit").innerText = Math.floor((jarakMasa % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("saat").innerText = Math.floor((jarakMasa % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            } else {
+                clearInterval(x);
+                document.getElementById("hari").innerText = "00";
+                document.getElementById("jam").innerText = "00";
+                document.getElementById("minit").innerText = "00";
+                document.getElementById("saat").innerText = "00";
+            }
+        }, 1000);
+
+        // 2. ANIMASI NOMBOR STATISTIK (Mengepam nombor dari 0 ke jumlah sebenar)
+        // Nota: Anda boleh ubah nilai 'sasaranPeserta' ini atau tarik dari Firebase nanti
+        function animasiNombor(id, sasaran) {
+            let semasa = 0;
+            const elemen = document.getElementById(id);
+            const kelajuan = sasaran / 50; 
+            const timer = setInterval(() => {
+                semasa += kelajuan;
+                if (semasa >= sasaran) {
+                    elemen.innerText = sasaran;
+                    clearInterval(timer);
+                } else {
+                    elemen.innerText = Math.ceil(semasa);
+                }
+            }, 30);
+        }
+        
+        // Mula animasi apabila laman siap dimuatkan
+        window.onload = () => {
+            animasiNombor("statPeserta", 342); // Contoh: 342 peserta
+            animasiNombor("statSlot", 158);   // Contoh: 158 slot berbaki
+        };
+
+        // 3. FUNGSI TOAST NOTIFIKASI
+        function tunjukToast(mesej) {
+            const toast = document.getElementById('toastNotif');
+            document.getElementById('toastMsg').innerText = mesej;
+            
+            // Masuk
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            
+            // Keluar selepas 3 saat
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
