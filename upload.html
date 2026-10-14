@@ -43,6 +43,12 @@
                 <div class="inline-block bg-gray-100 text-gray-800 px-6 py-2 rounded-full border-2 border-gray-200">
                     <span id="displayId" class="font-sports font-black text-xl tracking-widest text-blue-600">Memuatkan...</span>
                 </div>
+                
+                <!-- Harga Pakej Ditambah Di Sini -->
+                <div class="mt-4 text-sm font-bold text-gray-700 bg-green-50 py-3 px-4 rounded-lg border border-green-100 inline-block w-full">
+                    <span class="block mb-1 text-green-800 uppercase tracking-wider text-xs">Maklumat Harga Pakej</span>
+                    Pakej A = <span class="text-green-600">RM60</span> <span class="mx-2 text-gray-300">|</span> Pakej B = <span class="text-green-600">RM40</span>
+                </div>
             </div>
 
             <!-- Kotak Maklumat Pembayaran Besar -->
@@ -59,6 +65,10 @@
                 </div>
                 <p class="text-lg font-bold text-gray-800 border-t-2 border-yellow-200 pt-3 mt-1 relative z-10 uppercase tracking-wide">
                     Muhammad Akiff Zuhailley
+                </p>
+                <!-- Peringatan Rujukan Transaksi -->
+                <p class="text-sm font-bold text-gray-700 mt-3 pt-3 border-t-2 border-yellow-200 uppercase tracking-wide relative z-10 bg-yellow-100 rounded p-2">
+                    Rujukan (Reference): <span class="text-blue-700">Laka Trail Run</span>
                 </p>
             </div>
 
@@ -82,6 +92,18 @@
                 <div class="mt-6 border-t-2 border-gray-100 pt-6">
                     <label class="block font-bold text-sm text-gray-700 uppercase mb-2">Gambar Resit <span class="text-xs text-gray-400 normal-case">(Max 5MB - JPG/PNG)</span></label>
                     <input type="file" id="gambarResit" accept="image/jpeg, image/png" required class="w-full border-2 border-dashed border-gray-300 p-4 rounded-lg bg-gray-50 focus:outline-none cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                    
+                    <!-- Peringatan Penamaan Dokumen -->
+                    <div class="mt-3 bg-red-50 p-3 rounded-lg border border-red-100">
+                        <p class="text-xs font-bold text-red-600 uppercase tracking-wide flex items-start">
+                            <svg class="w-4 h-4 mr-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Penting: Format Penamaan Dokumen
+                        </p>
+                        <p class="text-xs text-gray-700 mt-1 ml-5 font-medium">
+                            Nama dokumen mesti mengandungi <strong>Nama Penuh + ID Tempahan</strong>.<br>
+                            <span class="text-gray-500 italic">Contoh: Abu Bin Hassan_LAKA-1234.jpg</span>
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Ruang Pratonton (Dikekalkan untuk skrip Auto-Compressor) -->
