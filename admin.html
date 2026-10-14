@@ -3,58 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Urusetia - Laka Selatan 5K Trail Nanas Run 2026</title>
+    <title>Panel Urusetia - Laka Selatan 5K Nanas Trail Run</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800 font-sans">
     
-    <!-- Navigasi Utama & Butang Kaunter -->
-    <nav class="bg-blue-900 text-white p-4 shadow-md">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <!-- Tajuk Panel -->
-            <h1 class="text-2xl md:text-3xl font-black tracking-wide uppercase">Panel Admin 5K Trail Nanas Run '26</h1>
-            
-            <!-- Ruang Butang Kanan -->
-            <div class="flex items-center space-x-3">
-                <span class="text-sm bg-blue-700 px-3 py-2 rounded font-semibold border border-blue-500 shadow-inner">
+    <!-- Import Fon Bertema Sukan -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,800;1,900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-sports { font-family: 'Montserrat', sans-serif; }
+        
+        .bg-pattern {
+            background-color: #047857; /* Green-700 */
+            background-image: radial-gradient(#065f46 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header & Navigasi Admin -->
+    <header class="bg-pattern relative pt-12 pb-24 overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div>
+                <span class="inline-block py-1 px-3 rounded-full bg-green-800 text-green-100 text-xs font-bold uppercase tracking-widest mb-2 border border-green-600">
                     Mod Pengesahan Resit
                 </span>
-                
-                <!-- Butang Buka Kaunter Serahan -->
-                <a href="admin-kaunter.html" target="_blank" class="bg-purple-500 hover:bg-purple-600 text-white text-sm font-bold py-2 px-4 rounded shadow-lg transition flex items-center border border-purple-400">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Buka Kaunter Serahan
+                <h1 class="text-3xl md:text-4xl font-sports font-black italic text-white uppercase transform -skew-x-6 tracking-tight">
+                    Panel Urusetia <span class="text-yellow-400">Nanas Run</span>
+                </h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="admin-kaunter.html" target="_blank" class="bg-yellow-400 text-yellow-900 font-sports font-black italic px-6 py-3 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200 flex items-center">
+                    <svg class="w-5 h-5 mr-2 -skew-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    BUKA KAUNTER
                 </a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="container mx-auto mt-8 p-4 max-w-5xl">
+    <!-- Konten Utama (Jadual) -->
+    <div class="container mx-auto px-4 max-w-6xl -mt-12 relative z-20 mb-20">
         
-        <div class="bg-white rounded-lg shadow-xl p-6 border-t-4 border-blue-600">
-            <div class="flex justify-between items-center border-b pb-4 mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">Senarai Menunggu Pengesahan</h2>
-                <button onclick="location.reload()" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 py-1 px-3 rounded flex items-center transition">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+        <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8 border-b-4 border-yellow-400">
+            <div class="flex flex-col sm:flex-row justify-between items-center border-b pb-4 mb-6">
+                <h2 class="text-2xl font-sports font-black italic text-gray-800 uppercase">Senarai Menunggu Pengesahan</h2>
+                <button onclick="location.reload()" class="mt-4 sm:mt-0 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-full flex items-center transition border border-gray-200">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                     Segar Semula (Refresh)
                 </button>
             </div>
             
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-                    <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="min-w-full bg-white text-left">
+                    <thead class="bg-green-50 text-green-800 uppercase text-xs font-sports font-black tracking-wider border-b-2 border-green-200">
                         <tr>
-                            <th class="py-4 px-6 text-left border-b font-bold">ID / Peserta</th>
-                            <th class="py-4 px-6 text-left border-b font-bold">Butiran Transaksi</th>
-                            <th class="py-4 px-6 text-center border-b font-bold">Tindakan Kelulusan</th>
+                            <th class="py-4 px-6">ID / Peserta</th>
+                            <th class="py-4 px-6">Butiran Transaksi</th>
+                            <th class="py-4 px-6 text-center">Tindakan Kelulusan</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody" class="text-sm font-medium text-gray-800">
+                    <tbody id="tableBody" class="text-sm font-medium text-gray-700 divide-y divide-gray-100">
+                        <!-- Loading State dikekalkan -->
                         <tr>
-                            <td colspan="3" class="py-10 text-center text-gray-500 text-lg">
-                                <div class="flex justify-center items-center">
-                                    <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                    Memuatkan data pangkalan data...
+                            <td colspan="3" class="py-16 text-center text-gray-500">
+                                <div class="flex flex-col justify-center items-center space-y-3">
+                                    <svg class="animate-spin h-8 w-8 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <span class="font-bold tracking-widest uppercase text-xs">Memuatkan Pangkalan Data...</span>
                                 </div>
                             </td>
                         </tr>
@@ -64,14 +82,4 @@
         </div>
         
         <div class="mt-8 text-center">
-            <a href="index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold hover:underline transition">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Laman Awam
-            </a>
-        </div>
-    </div>
-
-    <!-- Firebase dan Logik Admin -->
-    <script type="module" src="admin.js"></script>
-</body>
-</html>
+            <a href="index.html" class="inline-
