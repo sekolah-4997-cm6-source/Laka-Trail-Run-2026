@@ -3,57 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaunter Serahan - Laka Selatan 5K Trail Nanas Run 2026</title>
+    <title>Kaunter Serahan - Laka Selatan 5K Nanas Trail Run</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Fon Bertema Sukan -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,800;1,900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-sports { font-family: 'Montserrat', sans-serif; }
+        
+        .bg-pattern {
+            background-color: #047857; /* Green-700 */
+            background-image: radial-gradient(#065f46 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
-    <nav class="bg-purple-900 text-white p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">Kaunter Race Kit 5K Trail Nanas Run</h1>
-            <a href="index.html" class="text-sm bg-purple-700 hover:bg-purple-800 px-3 py-1 rounded transition">Kembali</a>
+<body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col">
+    
+    <!-- Header Mod Kaunter -->
+    <nav class="bg-pattern text-white p-4 shadow-md border-b-4 border-yellow-400">
+        <div class="container mx-auto max-w-4xl flex justify-between items-center">
+            <h1 class="text-2xl font-sports font-black italic tracking-wide uppercase transform -skew-x-6 text-white">
+                Kaunter <span class="text-yellow-400">Race Kit</span>
+            </h1>
+            <a href="admin.html" class="text-xs bg-white text-green-800 font-bold px-4 py-2 rounded-full hover:bg-gray-100 transition shadow-sm">
+                &larr; Kembali
+            </a>
         </div>
     </nav>
 
-    <div class="container mx-auto mt-8 p-4 max-w-lg">
-        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-            <h2 class="text-xl font-bold mb-4 text-gray-700">Carian Peserta</h2>
+    <!-- Kawasan Carian -->
+    <div class="container mx-auto mt-10 p-4 max-w-xl flex-grow">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">🔍</div>
+                <h2 class="text-2xl font-sports font-black italic text-gray-800 uppercase">Carian Peserta</h2>
+                <p class="text-sm text-gray-500 mt-1">Sila imbas atau taip nombor kad pengenalan / ID.</p>
+            </div>
             
-            <form id="kaunterForm" class="space-y-4">
-                <input type="text" id="icCarian" required placeholder="Masukkan No. Kad Pengenalan" class="w-full border p-3 rounded bg-gray-50 text-center text-lg font-bold tracking-widest focus:ring-2 focus:ring-purple-500 focus:outline-none">
-                <button type="submit" id="btnCari" class="w-full bg-purple-600 text-white font-bold py-3 rounded hover:bg-purple-700 transition shadow-md">
-                    Cari Peserta
+            <form id="kaunterForm" class="space-y-5">
+                <input type="text" id="icCarian" required placeholder="Cth: 901201021234" class="w-full border-2 border-gray-200 p-4 rounded-lg bg-gray-50 text-center text-2xl font-sports font-black tracking-widest text-gray-800 focus:ring-4 focus:ring-green-100 focus:border-green-500 focus:outline-none transition placeholder-gray-300 uppercase">
+                
+                <button type="submit" id="btnCari" class="w-full bg-green-600 text-white font-sports font-black italic text-lg py-4 rounded-lg shadow-[0_4px_0_rgb(21,128,61)] hover:translate-y-1 hover:shadow-none hover:bg-green-700 transition-all duration-200">
+                    CARI REKOD
                 </button>
             </form>
         </div>
 
-        <!-- Ruang Keputusan -->
-        <div id="ruangKeputusan" class="hidden mt-6 bg-white rounded-lg shadow-lg p-6">
-            <div class="border-b pb-4 mb-4 text-center">
-                <h3 class="text-2xl font-black text-gray-800" id="resNama">NAMA PESERTA</h3>
-                <p class="text-gray-500 font-semibold" id="resBib">BIB: -</p>
+        <!-- Ruang Keputusan (Tersembunyi pada asalnya) -->
+        <div id="ruangKeputusan" class="hidden mt-8 bg-white rounded-2xl shadow-2xl p-8 border-t-8 border-blue-500 transform transition-all duration-300">
+            <div class="border-b-2 border-dashed border-gray-200 pb-6 mb-6 text-center">
+                <h3 class="text-3xl font-sports font-black italic text-gray-900 uppercase" id="resNama">NAMA PESERTA</h3>
+                <div class="inline-block mt-2 bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full border border-yellow-300">
+                    <p class="font-bold text-sm tracking-wider" id="resBib">BIB: -</p>
+                </div>
             </div>
             
-            <div class="grid grid-cols-2 gap-4 text-center mb-6">
-                <div class="bg-gray-50 p-3 rounded border">
-                    <p class="text-xs text-gray-500 uppercase">Pakej</p>
-                    <p class="font-bold text-lg" id="resPakej">A</p>
+            <div class="grid grid-cols-2 gap-6 text-center mb-8">
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-1">Kategori/Pakej</p>
+                    <p class="font-sports font-black text-2xl text-gray-800" id="resPakej">A</p>
                 </div>
-                <div class="bg-gray-50 p-3 rounded border">
-                    <p class="text-xs text-gray-500 uppercase">Saiz Baju</p>
-                    <p class="font-bold text-lg text-blue-600" id="resSaiz">XL</p>
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                    <p class="text-xs text-blue-400 font-bold uppercase tracking-widest mb-1">Saiz Baju</p>
+                    <p class="font-sports font-black text-2xl text-blue-700" id="resSaiz">XL</p>
                 </div>
             </div>
 
-            <div id="statusBox" class="p-4 rounded text-center font-bold mb-4 border">
+            <!-- Kotak Status -->
+            <div id="statusBox" class="p-4 rounded-lg text-center font-bold mb-6 border-2 uppercase tracking-wide">
                 <span id="statusText">STATUS</span>
             </div>
 
-            <button id="btnTuntut" class="hidden w-full bg-green-500 text-white font-bold py-3 rounded hover:bg-green-600 transition shadow-md">
-                Sahkan Tuntutan Race Kit
+            <!-- Butang Tuntut -->
+            <button id="btnTuntut" class="hidden w-full bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 rounded-lg shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200 flex items-center justify-center">
+                <svg class="w-6 h-6 mr-2 -skew-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                SAHKAN TUNTUTAN
             </button>
         </div>
     </div>
 
+    <!-- Firebase dan Logik Kaunter (DIKEKALKAN) -->
     <script type="module" src="admin-kaunter.js"></script>
 </body>
 </html>
