@@ -47,14 +47,15 @@
     <!-- Galeri Showcase -->
     <section class="container mx-auto px-6 py-16 max-w-6xl relative z-10">
         
-        <!-- Grid Item -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="katalogContainer">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
             <!-- Item 1: Jersi -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-2xl transition duration-300">
-                <div class="aspect-square bg-gray-200 relative overflow-hidden flex items-center justify-center">
-                    <!-- Placeholder Gambar. Boleh tukar dengan tag <img> sebenar nanti -->
-                    <span class="text-gray-400 font-sports font-black text-2xl absolute opacity-50">GAMBAR JERSI</span>
+                <div class="aspect-square bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                    
+                    <!-- 1. TUKAR NAMA GAMBAR JERSI DI SINI -->
+                    <img src="gambar-jersi.jpg" alt="Jersi Sublimation" class="w-full h-full object-cover">
+                    
                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
                 </div>
                 <div class="p-6">
@@ -66,8 +67,11 @@
 
             <!-- Item 2: Medal -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-2xl transition duration-300">
-                <div class="aspect-square bg-gray-200 relative overflow-hidden flex items-center justify-center">
-                    <span class="text-gray-400 font-sports font-black text-2xl absolute opacity-50">GAMBAR MEDAL</span>
+                <div class="aspect-square bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                    
+                    <!-- 2. TUKAR NAMA GAMBAR MEDAL DI SINI -->
+                    <img src="gambar-medal.jpg" alt="Medal Finisher" class="w-full h-full object-cover">
+                    
                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
                 </div>
                 <div class="p-6">
@@ -79,27 +83,17 @@
 
             <!-- Item 3: Bib -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-2xl transition duration-300">
-                <div class="aspect-square bg-gray-200 relative overflow-hidden flex items-center justify-center">
-                    <span class="text-gray-400 font-sports font-black text-2xl absolute opacity-50">GAMBAR BIB</span>
+                <div class="aspect-square bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                    
+                    <!-- 3. TUKAR NAMA GAMBAR BIB DI SINI -->
+                    <img src="gambar-bib.jpg" alt="Nombor Bib" class="w-full h-full object-cover">
+                    
                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
                 </div>
                 <div class="p-6">
                     <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Wajib</span>
                     <h3 class="font-sports font-black italic text-2xl text-gray-900 mb-2">Nombor Bib Custom</h3>
                     <p class="text-gray-600 text-sm">Dilengkapi dengan cip masa (pilihan) dan dicetak di atas kertas sintetik kalis air dan kalis koyak (Tyvek). Nama peserta juga dicetak!</p>
-                </div>
-            </div>
-
-            <!-- Item 4: Goodie Bag -->
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-2xl transition duration-300">
-                <div class="aspect-square bg-gray-200 relative overflow-hidden flex items-center justify-center">
-                    <span class="text-gray-400 font-sports font-black text-2xl absolute opacity-50">GAMBAR GOODIE BAG</span>
-                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Bonus</span>
-                    <h3 class="font-sports font-black italic text-2xl text-gray-900 mb-2">Beg Barangan & Kupon</h3>
-                    <p class="text-gray-600 text-sm">Beg serut (drawstring) kalis air mengandungi snek tenaga, sijil pencapaian bercetak, dan kupon cabutan bertuah bernilai RM10.</p>
                 </div>
             </div>
 
@@ -114,23 +108,5 @@
         </div>
     </footer>
 
-    <!-- BUTANG TERAPUNG ADMIN (Untuk edit katalog masa depan) -->
-    <button onclick="bukaModAdmin()" class="fixed bottom-8 right-8 bg-gray-900 text-white font-bold py-3 px-6 rounded-full shadow-2xl hover:bg-gray-800 transition flex items-center space-x-2 border-2 border-gray-700 group z-50">
-        <span class="text-xl group-hover:rotate-90 transition transform">⚙️</span>
-        <span class="hidden md:inline-block">Mod Urusetia: Kemas Kini Katalog</span>
-    </button>
-
-    <script>
-        // Fungsi placeholder untuk Admin. Akan dipautkan ke borang/skrip kemas kini kelak.
-        function bukaModAdmin() {
-            const kataLaluan = prompt("Masukkan kata laluan urusetia untuk mengubah katalog:");
-            if(kataLaluan === "nanas2026") {
-                alert("Akses diberikan! Anda kini boleh memuat naik gambar baru dan menyunting deskripsi. (Fungsi backend akan ditambah kelak)");
-                // Di sini kita boleh tunjukkan butang 'Edit' pada setiap kad
-            } else if (kataLaluan !== null) {
-                alert("Akses Ditolak.");
-            }
-        }
-    </script>
 </body>
 </html>
