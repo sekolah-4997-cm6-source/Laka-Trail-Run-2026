@@ -3,67 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muat Naik Resit - Laka Selatan 5K Trail Nanas Run 2026</title>
+    <title>Muat Naik Resit - Laka Selatan 5K Nanas Trail Run 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Library Auto-Compressor -->
+    
+    <!-- Import Fon Bertema Sukan -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,800;1,900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Library Auto-Compressor (DIKEKALKAN) -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-sports { font-family: 'Montserrat', sans-serif; }
+        .bg-pattern {
+            background-color: #047857; /* Green-700 */
+            background-image: radial-gradient(#065f46 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <div class="max-w-lg mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
-        <h2 class="text-2xl font-bold text-center text-blue-700 mb-2">Muat Naik Bukti Pembayaran</h2>
-        <p class="text-center text-gray-600 mb-4">ID Tempahan: <span id="displayId" class="font-bold text-black">Memuatkan...</span></p>
+<body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col">
 
-        <!-- Kotak Maklumat Pembayaran Besar -->
-        <div class="bg-yellow-50 border-2 border-yellow-400 p-5 rounded-xl mb-6 text-center shadow-sm">
-            <p class="text-xs font-bold uppercase tracking-wider text-yellow-800 mb-1">
-                Pembayaran Boleh Dilakukan Menerusi:
-            </p>
-            <div class="text-2xl sm:text-3xl font-black text-gray-900 tracking-wider my-1 font-mono">
-                1590 1320 3523
-            </div>
-            <p class="text-sm font-bold text-yellow-900 mb-1">
-                (Maybank)
-            </p>
-            <p class="text-base font-bold text-gray-800 border-t border-yellow-200 pt-2 mt-2">
-                Muhammad Akiff Zuhailley
-            </p>
+    <!-- Header -->
+    <header class="bg-pattern relative pt-12 pb-24 overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-sports font-black italic text-white uppercase transform -skew-x-6 tracking-tight mb-2">
+                Muat Naik <span class="text-yellow-400">Resit</span>
+            </h1>
+            <p class="text-green-100 font-medium">Laka Selatan Nanas Run 2026</p>
         </div>
+    </header>
 
-        <form id="uploadForm" class="space-y-4">
-            <div>
-                <label class="block font-semibold">No. Rujukan Transaksi (Ref No)</label>
-                <input type="text" id="refNo" required placeholder="Cth: 1234567890" class="w-full border p-2 rounded mt-1">
-            </div>
+    <div class="max-w-xl w-full mx-auto px-4 -mt-16 relative z-20 flex-grow mb-12">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
             
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-semibold">Tarikh Transaksi</label>
-                    <input type="date" id="tarikh" required class="w-full border p-2 rounded mt-1">
-                </div>
-                <div>
-                    <label class="block font-semibold">Masa Transaksi</label>
-                    <input type="time" id="masa" required class="w-full border p-2 rounded mt-1">
+            <div class="text-center mb-6">
+                <p class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-1">ID Tempahan Anda</p>
+                <div class="inline-block bg-gray-100 text-gray-800 px-6 py-2 rounded-full border-2 border-gray-200">
+                    <span id="displayId" class="font-sports font-black text-xl tracking-widest text-blue-600">Memuatkan...</span>
                 </div>
             </div>
 
-            <div>
-                <label class="block font-semibold mb-1">Gambar Resit (Max 5MB)</label>
-                <input type="file" id="gambarResit" accept="image/jpeg, image/png" required class="w-full border p-2 rounded bg-gray-50">
+            <!-- Kotak Maklumat Pembayaran Besar -->
+            <div class="bg-yellow-50 border-2 border-dashed border-yellow-400 p-6 rounded-xl mb-8 text-center shadow-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-yellow-200 rounded-full opacity-50"></div>
+                <p class="text-xs font-bold uppercase tracking-wider text-yellow-800 mb-2 relative z-10">
+                    Sila Buat Pembayaran Ke Akaun:
+                </p>
+                <div class="text-3xl sm:text-4xl font-sports font-black text-gray-900 tracking-widest my-2 relative z-10">
+                    1590 1320 3523
+                </div>
+                <div class="inline-block bg-yellow-400 text-yellow-900 px-3 py-1 rounded text-xs font-black uppercase tracking-widest mb-3 relative z-10">
+                    Maybank
+                </div>
+                <p class="text-lg font-bold text-gray-800 border-t-2 border-yellow-200 pt-3 mt-1 relative z-10 uppercase tracking-wide">
+                    Muhammad Akiff Zuhailley
+                </p>
             </div>
 
-            <!-- Ruang Pratonton -->
-            <div id="previewContainer" class="hidden mt-4 border p-2 rounded bg-gray-100 text-center">
-                <p class="text-xs text-gray-500 mb-2">Pratonton Imej (Sila pastikan tulisan jelas)</p>
-                <img id="imagePreview" class="max-h-64 mx-auto rounded">
-            </div>
+            <form id="uploadForm" class="space-y-5">
+                <div>
+                    <label class="block font-bold text-sm text-gray-700 uppercase mb-1">No. Rujukan Transaksi (Ref No)</label>
+                    <input type="text" id="refNo" required placeholder="Cth: 1234567890" class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-200 focus:border-green-500 focus:outline-none transition font-medium">
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-bold text-sm text-gray-700 uppercase mb-1">Tarikh Transaksi</label>
+                        <input type="date" id="tarikh" required class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-200 focus:border-green-500 focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-sm text-gray-700 uppercase mb-1">Masa Transaksi</label>
+                        <input type="time" id="masa" required class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-200 focus:border-green-500 focus:outline-none transition">
+                    </div>
+                </div>
 
-            <button type="submit" id="btnSubmit" class="w-full bg-blue-600 text-white font-bold py-3 rounded mt-6 hover:bg-blue-700 transition shadow-md">
-                Sahkan & Hantar
-            </button>
-            <p id="statusMsg" class="text-center mt-2 font-bold hidden"></p>
-        </form>
+                <div class="mt-6 border-t-2 border-gray-100 pt-6">
+                    <label class="block font-bold text-sm text-gray-700 uppercase mb-2">Gambar Resit <span class="text-xs text-gray-400 normal-case">(Max 5MB - JPG/PNG)</span></label>
+                    <input type="file" id="gambarResit" accept="image/jpeg, image/png" required class="w-full border-2 border-dashed border-gray-300 p-4 rounded-lg bg-gray-50 focus:outline-none cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                </div>
+
+                <!-- Ruang Pratonton (Dikekalkan untuk skrip Auto-Compressor) -->
+                <div id="previewContainer" class="hidden mt-4 border-2 border-gray-100 p-4 rounded-xl bg-gray-50 text-center shadow-inner">
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-3">Pratonton Imej</p>
+                    <img id="imagePreview" class="max-h-64 mx-auto rounded-lg shadow-md border border-gray-200">
+                </div>
+
+                <button type="submit" id="btnSubmit" class="w-full bg-green-600 text-white font-sports font-black italic text-xl py-4 rounded-lg mt-8 shadow-[0_4px_0_rgb(21,128,61)] hover:translate-y-1 hover:shadow-none hover:bg-green-700 transition-all duration-200">
+                    SAHKAN & HANTAR
+                </button>
+                <p id="statusMsg" class="text-center mt-4 font-bold hidden p-3 rounded-lg"></p>
+            </form>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="inline-flex items-center text-gray-500 hover:text-green-700 font-bold transition">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali ke Laman Utama
+            </a>
+        </div>
     </div>
 
+    <!-- Skrip Firebase & Logik Muat Naik (DIKEKALKAN) -->
     <script type="module" src="upload.js"></script>
 </body>
 </html>
