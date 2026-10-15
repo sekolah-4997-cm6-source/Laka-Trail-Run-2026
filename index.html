@@ -333,6 +333,26 @@
                 toast.classList.add('translate-x-full', 'opacity-0');
             }, 3000);
         };
+
+        // KAWALAN BUTANG SIJIL (14 Nov 2026, 10:00:00 Pagi)
+const tarikhBukaSijil = new Date("Nov 14, 2026 10:00:00").getTime();
+const btnSijil = document.getElementById("btnSijil");
+const labelSijil = document.getElementById("labelSijil");
+
+function semakStatusSijil() {
+    const sekarang = new Date().getTime();
+    if (sekarang >= tarikhBukaSijil) {
+        // Aktifkan Butang
+        btnSijil.classList.remove("bg-gray-300", "text-gray-500", "cursor-not-allowed", "pointer-events-none", "shadow-[0_4px_0_rgb(156,163,175)]", "border-gray-400");
+        btnSijil.classList.add("bg-blue-600", "text-white", "shadow-[0_4px_0_rgb(37,99,235)]", "hover:translate-y-1", "hover:shadow-none", "hover:bg-blue-700", "border-transparent");
+        labelSijil.innerText = "Sistem Telah Dibuka";
+        labelSijil.classList.add("text-blue-200");
+    }
+}
+
+// Semak terus semasa halaman dimuat dan ulang setiap 1 minit
+semakStatusSijil();
+setInterval(semakStatusSijil, 60000);
     </script>
 </body>
 </html>
