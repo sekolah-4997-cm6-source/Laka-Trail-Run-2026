@@ -50,9 +50,9 @@
         <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
 
         <div class="container mx-auto px-6 relative z-10 text-center">
-    <span class="inline-block py-1 px-3 rounded-full bg-yellow-500 text-yellow-900 text-xs font-bold uppercase tracking-widest mb-4 animate-pulse shadow-[0_0_15px_rgba(234,179,8,0.8)] border border-yellow-300">
-        Pendaftaran Kini Dibuka Sehingga 19 Oktober 2026, 5:00 Petang
-    </span>
+            <span class="inline-block py-1 px-3 rounded-full bg-yellow-500 text-yellow-900 text-xs font-bold uppercase tracking-widest mb-4 animate-pulse shadow-[0_0_15px_rgba(234,179,8,0.8)] border border-yellow-300">
+                Pendaftaran Kini Dibuka Sehingga 19 Oktober 2026, 5:00 Petang
+            </span>
             <h2 class="text-5xl md:text-7xl font-sports font-black italic text-white mb-2 leading-tight uppercase transform -skew-x-6">
                 Laka Selatan 5K <br> <span class="text-yellow-400">Nanas Trail Run</span> 2026
             </h2>
@@ -63,16 +63,16 @@
             </p>
             
             <div class="flex flex-col sm:flex-row justify-center gap-4 flex-wrap">
-    <a href="daftar.html" class="bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
-        DAFTAR SEKARANG
-    </a>
-    <a href="semak.html" class="bg-white text-green-700 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(209,213,219)] hover:translate-y-1 hover:shadow-none hover:bg-gray-50 transition-all duration-200 border-2 border-transparent">
-        SEMAK STATUS
-    </a>
-    <!-- Butang Sijil (Disekat secara lalai) -->
-    <a href="sijil.html" id="btnSijil" class="bg-gray-300 text-gray-500 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(156,163,175)] cursor-not-allowed pointer-events-none transition-all duration-300 border-2 border-gray-400">
-        DAPATKAN SIJIL <span id="labelSijil" class="block text-xs normal-case font-medium mt-1">Dibuka 14 Nov, 10:00 Pagi</span>
-    </a>
+                <a href="daftar.html" class="bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
+                    DAFTAR SEKARANG
+                </a>
+                <a href="semak.html" class="bg-white text-green-700 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(209,213,219)] hover:translate-y-1 hover:shadow-none hover:bg-gray-50 transition-all duration-200 border-2 border-transparent">
+                    SEMAK STATUS
+                </a>
+                <!-- Butang Sijil (Disekat secara lalai) -->
+                <a href="sijil.html" id="btnSijil" class="bg-gray-300 text-gray-500 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(156,163,175)] cursor-not-allowed pointer-events-none transition-all duration-300 border-2 border-gray-400">
+                    DAPATKAN SIJIL <span id="labelSijil" class="block text-xs normal-case font-medium mt-1">Dibuka 14 Nov, 10:00 Pagi</span>
+                </a>
             </div>
         </div>
     </header>
@@ -133,6 +133,36 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- PENGUMUMAN PENTING PEMBAYARAN (Baru Ditambah) -->
+    <div class="container mx-auto px-4 max-w-6xl mt-8 relative z-20">
+        <div class="bg-red-50 border-2 border-red-200 p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-start md:items-center gap-6 relative overflow-hidden">
+            <!-- Hiasan Background -->
+            <div class="absolute -right-4 -top-4 w-16 h-16 bg-red-100 rounded-full opacity-50 pointer-events-none"></div>
+            
+            <div class="bg-red-100 text-red-600 p-4 rounded-full flex-shrink-0">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <div class="w-full">
+                <h3 class="text-xl font-sports font-black italic text-red-600 uppercase mb-2">Makluman Penting Pembayaran</h3>
+                <p class="text-gray-700 font-medium mb-4 text-sm md:text-base leading-relaxed">
+                    Pembayaran hendaklah dilakukan segera atau <span class="font-bold text-red-600 bg-red-100 px-1 rounded">selewat-lewatnya 24 jam selepas mendaftar</span>. Jika tiada pembayaran penuh dilakukan, pendaftaran akan ditolak secara automatik oleh sistem.
+                </p>
+                <div class="text-sm text-red-800 bg-white border border-red-100 p-4 rounded-lg font-medium shadow-sm flex flex-wrap gap-2 items-center">
+                    <span class="text-[10px] md:text-xs uppercase tracking-wider font-bold text-gray-400 mr-2 block w-full md:w-auto mb-1 md:mb-0">Cara Muat Naik Resit:</span>
+                    <span>Semak Status</span> 
+                    <svg class="w-4 h-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> 
+                    <span>Carian mengikut IC</span> 
+                    <svg class="w-4 h-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> 
+                    <span>Muat Naik Resit Sekarang</span> 
+                    <svg class="w-4 h-4 text-red-300 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> 
+                    <span>Isi maklumat & bukti</span> 
+                    <svg class="w-4 h-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> 
+                    <span class="font-bold text-red-600">Sahkan dan hantar</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -304,7 +334,7 @@
             const sisaA = Math.max(0, 150 - pakejA);
             const sisaB = Math.max(0, 250 - pakejB);
 
-            // Animasikan nombor hanya pada loading pertama (supaya tidak pelik bila update live)
+            // Animasikan nombor hanya pada loading pertama
             if (firstLoad) {
                 animasiNombor("statTotal", total);
                 animasiNombor("statPending", pending);
@@ -334,25 +364,25 @@
             }, 3000);
         };
 
-        // KAWALAN BUTANG SIJIL (14 Nov 2026, 10:00:00 Pagi)
-const tarikhBukaSijil = new Date("Nov 14, 2026 10:00:00").getTime();
-const btnSijil = document.getElementById("btnSijil");
-const labelSijil = document.getElementById("labelSijil");
+        // 5. KAWALAN BUTANG SIJIL (14 Nov 2026, 10:00:00 Pagi)
+        const tarikhBukaSijil = new Date("Nov 14, 2026 10:00:00").getTime();
+        const btnSijil = document.getElementById("btnSijil");
+        const labelSijil = document.getElementById("labelSijil");
 
-function semakStatusSijil() {
-    const sekarang = new Date().getTime();
-    if (sekarang >= tarikhBukaSijil) {
-        // Aktifkan Butang
-        btnSijil.classList.remove("bg-gray-300", "text-gray-500", "cursor-not-allowed", "pointer-events-none", "shadow-[0_4px_0_rgb(156,163,175)]", "border-gray-400");
-        btnSijil.classList.add("bg-blue-600", "text-white", "shadow-[0_4px_0_rgb(37,99,235)]", "hover:translate-y-1", "hover:shadow-none", "hover:bg-blue-700", "border-transparent");
-        labelSijil.innerText = "Sistem Telah Dibuka";
-        labelSijil.classList.add("text-blue-200");
-    }
-}
+        function semakStatusSijil() {
+            const sekarang = new Date().getTime();
+            if (sekarang >= tarikhBukaSijil) {
+                // Aktifkan Butang
+                btnSijil.classList.remove("bg-gray-300", "text-gray-500", "cursor-not-allowed", "pointer-events-none", "shadow-[0_4px_0_rgb(156,163,175)]", "border-gray-400");
+                btnSijil.classList.add("bg-blue-600", "text-white", "shadow-[0_4px_0_rgb(37,99,235)]", "hover:translate-y-1", "hover:shadow-none", "hover:bg-blue-700", "border-transparent");
+                labelSijil.innerText = "Sistem Telah Dibuka";
+                labelSijil.classList.add("text-blue-200");
+            }
+        }
 
-// Semak terus semasa halaman dimuat dan ulang setiap 1 minit
-semakStatusSijil();
-setInterval(semakStatusSijil, 60000);
+        // Semak terus semasa halaman dimuat dan ulang setiap 1 minit
+        semakStatusSijil();
+        setInterval(semakStatusSijil, 60000);
     </script>
 </body>
 </html>
