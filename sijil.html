@@ -171,22 +171,25 @@
             
             // Teks Tandatangan (Font italic untuk nampak seperti 'signature' digital)
             doc.setFont("times", "italic");
-            doc.setFontSize(28);
+            doc.setFontSize(26);
             doc.setTextColor(0, 0, 0);
-            doc.text("Akiff Zuhailley", 220, 160, null, null, "center"); // Nama penganjur/Pengarah
+            doc.text("Kamariah Kamaruddin", 220, 158, null, null, "center"); 
             
             // Garisan Tandatangan
             doc.setDrawColor(0, 0, 0);
             doc.setLineWidth(0.5);
-            doc.line(180, 162, 260, 162);
+            doc.line(175, 161, 265, 161);
             
-            // Jawatan
+            // Nama & Jawatan
             doc.setFont("helvetica", "bold");
             doc.setFontSize(10);
             doc.setTextColor(75, 85, 99);
-            doc.text("MUHAMMAD AKIFF ZUHAILLEY", 220, 168, null, null, "center");
+            doc.text("KAMARIAH BINTI KAMARUDDIN", 220, 167, null, null, "center");
+            
             doc.setFont("helvetica", "normal");
-            doc.text("Pengarah Program", 220, 173, null, null, "center");
+            doc.setFontSize(9);
+            doc.text("Guru Besar", 220, 172, null, null, "center");
+            doc.text("SK Felda Laka Selatan", 220, 176, null, null, "center");
 
             // Teks Footer
             doc.setFont("helvetica", "bold");
