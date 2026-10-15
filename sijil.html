@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jana Sijil - Laka Selatan 5K Nanas Trail Run 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,800;1,900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Library jsPDF untuk menjana PDF di sisi klien -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-sports { font-family: 'Montserrat', sans-serif; }
+        .bg-pattern { background-color: #047857; background-image: radial-gradient(#065f46 1px, transparent 1px); background-size: 20px 20px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-pattern relative pt-12 pb-24 overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-sports font-black italic text-white uppercase transform -skew-x-6 tracking-tight mb-2">
+                Jana <span class="text-yellow-400">E-Sijil</span>
+            </h1>
+            <p class="text-green-100 font-medium">Sijil Penyertaan Rasmi Laka Selatan Nanas Run 2026</p>
+        </div>
+    </header>
+
+    <div class="max-w-xl w-full mx-auto px-4 -mt-16 relative z-20 flex-grow mb-12">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-6 text-sm text-blue-800 font-medium">
+                Maklumat anda akan dicetak terus ke dalam PDF. Sijil akan dimuat turun secara automatik selepas dijana.
+            </div>
+
+            <form id="sijilForm" class="space-y-5">
+                <div>
+                    <label class="block font-bold text-sm text-gray-700 uppercase mb-1">Nama Penuh (Seperti dalam IC)</label>
+                    <input type="text" id="nama" required placeholder="Contoh: ABU BIN HASSAN" class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-200 focus:border-blue-500 focus:outline-none transition uppercase">
+                </div>
+                
+                <div>
+                    <label class="block font-bold text-sm text-gray-700 uppercase mb-1">No. Kad Pengenalan</label>
+                    <input type="text" id="ic" required placeholder="Contoh: 900101-01-1234" class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-200 focus:border-blue-500 focus:outline-none transition">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-sm text-gray-700 uppercase mb-1">Institusi / Kelab / Syarikat</label>
+                    <input type="text" id="institusi" placeholder="Jika tiada, biarkan kosong atau tulis 'Tiada'" class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-200 focus:border-blue-500 focus:outline-none transition uppercase">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-sm text-gray-700 uppercase mb-1">Alamat E-mel</label>
+                    <input type="email" id="emel" required placeholder="Sijil PDF akan dihantar ke sini" class="w-full border-2 border-gray-200 p-3 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-200 focus:border-blue-500 focus:outline-none transition">
+                </div>
+
+                <button type="submit" id="btnJana" class="w-full bg-blue-600 text-white font-sports font-black italic text-xl py-4 rounded-lg mt-8 shadow-[0_4px_0_rgb(29,78,216)] hover:translate-y-1 hover:shadow-none hover:bg-blue-700 transition-all duration-200">
+                    JANA & MUAT TURUN SIJIL
+                </button>
+            </form>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="inline-flex items-center text-gray-500 hover:text-green-700 font-bold transition">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali ke Laman Utama
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sijilForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ubah butang kepada status loading
+            const btn = document.getElementById('btnJana');
+            const teksAsal = btn.innerText;
+            btn.innerText = "MENJANA SIJIL...";
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            
+            // Ambil data form
+            const nama = document.getElementById('nama').value.toUpperCase();
+            const ic = document.getElementById('ic').value;
+            let institusi = document.getElementById('institusi').value.toUpperCase();
+            if(!institusi || institusi === 'TIADA') institusi = 'PESERTA INDIVIDU';
+            
+            // Jana PDF selepas sedikit delay (untuk UX yang lebih baik)
+            setTimeout(() => {
+                janaSijilPDF(nama, ic, institusi);
+                
+                // Kembalikan status butang
+                btn.innerText = teksAsal;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                
+                alert("Sijil berjaya dijana dan dimuat turun! (Fungsi e-mel memerlukan integrasi backend/EmailJS)");
+            }, 1000);
+        });
+
+        function janaSijilPDF(nama, ic, institusi) {
+            const { jsPDF } = window.jspdf;
+            
+            // Tetapan A4 (Landscape)
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Latar Belakang (Tema Hijau Gelap)
+            doc.setFillColor(4, 120, 87); // #047857 Green-700
+            doc.rect(0, 0, 297, 210, 'F');
+            
+            // Bingkai Dalaman Putih
+            doc.setFillColor(255, 255, 255);
+            doc.rect(10, 10, 277, 190, 'F');
+            
+            // Corak Header Kuning
+            doc.setFillColor(250, 204, 21); // #FACC15 Yellow-400
+            doc.rect(10, 10, 277, 25, 'F');
+            doc.triangle(10, 35, 150, 35, 10, 45, 'F');
+
+            // Corak Footer Kuning
+            doc.rect(10, 175, 277, 25, 'F');
+
+            // Teks Header
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(4, 120, 87); // Green text
+            doc.setFontSize(22);
+            doc.text("LAKA SELATAN 5K NANAS TRAIL RUN 2026", 148.5, 27, null, null, "center");
+
+            // Tajuk Sijil
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(31, 41, 55); // Gray-800
+            doc.setFontSize(36);
+            doc.text("SIJIL PENYERTAAN", 148.5, 65, null, null, "center");
+
+            // Garisan Bawah Tajuk
+            doc.setDrawColor(250, 204, 21);
+            doc.setLineWidth(1.5);
+            doc.line(100, 70, 197, 70);
+
+            // Teks Pendahuluan
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(14);
+            doc.text("Dengan ini disahkan bahawa", 148.5, 85, null, null, "center");
+
+            // NAMA PESERTA
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(24);
+            doc.setTextColor(4, 120, 87);
+            doc.text(nama, 148.5, 100, null, null, "center");
+
+            // NO IC & INSTITUSI
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(12);
+            doc.setTextColor(75, 85, 99); // Gray-600
+            doc.text(`No. Kad Pengenalan: ${ic}`, 148.5, 110, null, null, "center");
+            doc.text(`Wakil: ${institusi}`, 148.5, 117, null, null, "center");
+
+            // Kenyataan Tamat
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(14);
+            doc.setTextColor(31, 41, 55);
+            doc.text("Telah berjaya menamatkan larian merentas desa sejauh 5 Kilometer", 148.5, 135, null, null, "center");
+            doc.text("anjuran SK Felda Laka Selatan pada 14 November 2026.", 148.5, 143, null, null, "center");
+
+            // ==========================================
+            // BAHAGIAN TANDATANGAN DIGITAL
+            // ==========================================
+            
+            // Teks Tandatangan (Font italic untuk nampak seperti 'signature' digital)
+            doc.setFont("times", "italic");
+            doc.setFontSize(28);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Akiff Zuhailley", 220, 160, null, null, "center"); // Nama penganjur/Pengarah
+            
+            // Garisan Tandatangan
+            doc.setDrawColor(0, 0, 0);
+            doc.setLineWidth(0.5);
+            doc.line(180, 162, 260, 162);
+            
+            // Jawatan
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(10);
+            doc.setTextColor(75, 85, 99);
+            doc.text("MUHAMMAD AKIFF ZUHAILLEY", 220, 168, null, null, "center");
+            doc.setFont("helvetica", "normal");
+            doc.text("Pengarah Program", 220, 173, null, null, "center");
+
+            // Teks Footer
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(10);
+            doc.setTextColor(4, 120, 87);
+            doc.text("Dokumen ini dijana secara digital. Tiada tandatangan fizikal diperlukan.", 148.5, 190, null, null, "center");
+
+            // Save PDF
+            doc.save(`Sijil_LakaTrailRun_${nama.replace(/\s+/g, '_')}.pdf`);
+        }
+    </script>
+</body>
+</html>
