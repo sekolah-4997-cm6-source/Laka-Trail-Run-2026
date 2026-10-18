@@ -259,12 +259,13 @@
                 inputAlamat.value = '';
             }
         }
-        
-        // Halang form dari submit buat sementara waktu (sebelum Fasa 2 siap)
-        document.getElementById('formBaju').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert("Borang antaramuka sedia ada! Skrip pangkalan data akan diaktifkan dalam Fasa 2.");
-        });
     </script>
+
+    <!-- Pustaka Teras Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <!-- Pautkan skrip pangkalan data anda -->
+    <script src="baju.js"></script>
 </body>
 </html>
