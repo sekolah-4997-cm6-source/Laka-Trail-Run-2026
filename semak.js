@@ -8,8 +8,8 @@ const btnTindakan = document.getElementById('btnTindakan');
 
 const resNama = document.getElementById('resNama');
 const resID = document.getElementById('resID');
-const resPakej = document.getElementById('resPakej');
-const senaraiPakej = document.getElementById('senaraiPakej'); // Elemen senarai baru
+const badgeJenis = document.getElementById('badgeJenis');
+const kandunganDinamik = document.getElementById('kandunganDinamik');
 const resStatusBox = document.getElementById('resStatusBox');
 const resStatusText = document.getElementById('resStatusText');
 
@@ -24,60 +24,98 @@ form.addEventListener('submit', async (e) => {
     btnTindakan.classList.add('hidden');
 
     try {
-        const q = query(ref(db, 'peserta'), orderByChild('ic'), equalTo(icInput));
-        const snapshot_hasil = await get(q);
+        // Semakan 1: Cari di pangkalan data Peserta Larian
+        const qPeserta = query(ref(db, 'peserta'), orderByChild('ic'), equalTo(icInput));
+        const snapshotPeserta = await get(qPeserta);
 
-        if (snapshot_hasil.exists()) {
-            let dataPeserta;
-            let idTempahanKey;
-            
-            snapshot_hasil.forEach((child) => {
-                idTempahanKey = child.key;
-                dataPeserta = child.val();
-            });
-
-            // Papar Data Asas
-            resNama.innerText = dataPeserta.nama;
-            resID.innerText = idTempahanKey;
-            resPakej.innerText = `Pakej ${dataPeserta.pakej} ` + (dataPeserta.saizBaju !== 'Tiada' ? `(Saiz: ${dataPeserta.saizBaju})` : "");
-
-            // LOGIK SENARAI BARANGAN MENGIKUT PAKEJ
-            let htmlSenarai = "";
-            if (dataPeserta.pakej === 'A') {
-                htmlSenarai += "<li><strong>Jersi Sublimation</strong></li>";
-            }
-            // Barangan wajib untuk Pakej A & B
-            htmlSenarai += "<li>Nombor Bib</li>";
-            htmlSenarai += "<li>Kupon RM10 <span class='text-xs text-gray-500 italic'>(untuk digunakan dalam program Laka Havoc Fest 2026)</span></li>";
-            htmlSenarai += "<li>Medal Finisher <span class='text-xs text-gray-500 italic'>(diberikan selepas menamatkan larian)</span></li>";
-            htmlSenarai += "<li>Sijil <span class='text-xs text-gray-500 italic'>(diberikan seminggu selepas pertandingan)</span></li>";
-            
-            // Masukkan HTML ke dalam ul
-            senaraiPakej.innerHTML = htmlSenarai;
-
-            // Menguruskan Warna dan Mesej Status
-            urusStatus(dataPeserta.status, idTempahanKey);
-
-            ruangKeputusan.classList.remove('hidden');
+        if (snapshotPeserta.exists()) {
+            paparKeputusan(snapshotPeserta, 'peserta');
         } else {
-            alert("Maaf, tiada rekod pendaftaran dijumpai untuk No. Kad Pengenalan ini.");
+            // Semakan 2: Jika bukan peserta, cari di pangkalan data Baju Sahaja
+            const qBaju = query(ref(db, 'tempahan_baju'), orderByChild('ic'), equalTo(icInput));
+            const snapshotBaju = await get(qBaju);
+            
+            if (snapshotBaju.exists()) {
+                paparKeputusan(snapshotBaju, 'baju');
+            } else {
+                alert("Maaf, tiada rekod pendaftaran atau tempahan baju dijumpai untuk No. Kad Pengenalan ini.");
+                btnSemak.disabled = false;
+                btnSemak.innerText = "SEMAK STATUS";
+            }
         }
-
     } catch (error) {
         console.error(error);
         alert("Ralat sistem ketika menyemak pangkalan data.");
-    } finally {
         btnSemak.disabled = false;
-        btnSemak.innerText = "Semak Status";
+        btnSemak.innerText = "SEMAK STATUS";
     }
 });
 
-function urusStatus(statusSistem, idTempahan) {
-    // Reset Kelas
+function paparKeputusan(snapshot, jenis) {
+    let data;
+    let idTempahanKey;
+    
+    snapshot.forEach((child) => {
+        idTempahanKey = child.key;
+        data = child.val();
+    });
+
+    resNama.innerText = data.nama;
+    resID.innerText = idTempahanKey;
+
+    if (jenis === 'peserta') {
+        badgeJenis.innerText = "Peserta Larian";
+        badgeJenis.className = "inline-block mb-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-blue-600";
+        
+        let htmlSenarai = "";
+        if (data.pakej === 'A') {
+            htmlSenarai += "<li><strong>Jersi Sublimation</strong></li>";
+        }
+        htmlSenarai += "<li>Nombor Bib</li>";
+        htmlSenarai += "<li>Kupon RM10 <span class='text-xs text-gray-500 italic'>(untuk Laka Havoc Fest)</span></li>";
+        htmlSenarai += "<li>Medal Finisher <span class='text-xs text-gray-500 italic'>(selepas tamat larian)</span></li>";
+        htmlSenarai += "<li>Sijil <span class='text-xs text-gray-500 italic'>(seminggu selepas pertandingan)</span></li>";
+
+        kandunganDinamik.innerHTML = `
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm text-center mb-6">
+                <p class="text-xs text-blue-500 font-bold uppercase tracking-widest mb-1">Pakej Pilihan</p>
+                <p class="font-sports font-black text-xl text-blue-800">Pakej ${data.pakej} ${data.saizBaju && data.saizBaju !== 'Tiada' ? `(Saiz: ${data.saizBaju})` : ""}</p>
+            </div>
+            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 text-sm text-gray-700 shadow-inner">
+                <p class="font-bold mb-3 text-gray-800 uppercase tracking-wide text-xs">Senarai Barangan Pakej Anda:</p>
+                <ul class="space-y-2 ml-2 font-medium list-disc list-inside">
+                    ${htmlSenarai}
+                </ul>
+            </div>
+        `;
+    } else if (jenis === 'baju') {
+        badgeJenis.innerText = "Tempahan Baju";
+        badgeJenis.className = "inline-block mb-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-green-600";
+        
+        kandunganDinamik.innerHTML = `
+            <div class="bg-green-50 p-4 rounded-xl border border-green-100 shadow-sm text-center mb-6">
+                <p class="text-xs text-green-600 font-bold uppercase tracking-widest mb-1">Butiran Baju</p>
+                <p class="font-sports font-black text-xl text-green-800">${data.jenis_baju} (Saiz: ${data.saiz})</p>
+                <p class="text-sm font-bold text-green-700 mt-1">Kuantiti: ${data.kuantiti} helai</p>
+            </div>
+            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 text-sm text-gray-700 shadow-inner">
+                <p class="font-bold mb-2 text-gray-800 uppercase tracking-wide text-xs">Kaedah Penghantaran:</p>
+                <p class="font-medium text-lg">${data.penghantaran}</p>
+                ${data.alamat ? `<p class="mt-2 text-gray-500 text-xs bg-gray-100 p-2 rounded border">${data.alamat}</p>` : ''}
+            </div>
+        `;
+    }
+
+    urusStatus(data.status || "PENDING_VERIFICATION", idTempahanKey, jenis);
+    ruangKeputusan.classList.remove('hidden');
+    
+    btnSemak.disabled = false;
+    btnSemak.innerText = "SEMAK STATUS";
+}
+
+function urusStatus(statusSistem, idTempahan, jenis) {
     resStatusBox.className = "mt-4 p-4 rounded text-center border font-bold shadow-sm";
     btnTindakan.classList.add('hidden');
-    
-    // Buang pautan lama jika ada
     btnTindakan.onclick = null;
 
     switch (statusSistem) {
@@ -87,7 +125,8 @@ function urusStatus(statusSistem, idTempahan) {
             
             btnTindakan.innerText = "Muat Naik Resit Sekarang";
             btnTindakan.className = "w-full bg-yellow-500 text-white font-bold py-3 rounded mt-4 hover:bg-yellow-600 transition shadow-md block";
-            btnTindakan.onclick = () => window.location.href = `upload.html?id=${idTempahan}`;
+            // Arahkan ke laman upload berbeza berdasarkan jenis (jika perlu)
+            btnTindakan.onclick = () => window.location.href = `upload.html?id=${idTempahan}&jenis=${jenis}`;
             btnTindakan.classList.remove('hidden');
             break;
 
@@ -97,22 +136,23 @@ function urusStatus(statusSistem, idTempahan) {
             break;
 
         case "CONFIRMED":
+        case "Disahkan": // Menyokong format teks dari sistem berbeza
             resStatusBox.classList.add("bg-green-100", "text-green-800", "border-green-300");
-            resStatusText.innerText = "PENDAFTARAN BERJAYA & SAH";
+            resStatusText.innerText = "TEMPAHAN BERJAYA & SAH";
             break;
             
         case "COLLECTED":
             resStatusBox.classList.add("bg-gray-100", "text-gray-800", "border-gray-300");
-            resStatusText.innerText = "RACE KIT TELAH DITUNTUT";
+            resStatusText.innerText = "BARANG TELAH DITUNTUT";
             break;
 
         case "REJECTED":
             resStatusBox.classList.add("bg-red-100", "text-red-800", "border-red-300");
-            resStatusText.innerText = "PENDAFTARAN DITOLAK";
+            resStatusText.innerText = "TEMPAHAN DITOLAK";
             break;
 
         default:
             resStatusBox.classList.add("bg-gray-100", "text-gray-800");
-            resStatusText.innerText = "STATUS TIDAK DIKETAHUI";
+            resStatusText.innerText = "STATUS: " + statusSistem;
     }
 }
