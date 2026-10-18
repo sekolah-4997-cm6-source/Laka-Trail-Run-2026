@@ -1,6 +1,6 @@
 // baju.js
 
-// 1. Konfigurasi Firebase (Ganti dengan maklumat projek Firebase anda)
+// 1. Konfigurasi Firebase (Dikekalkan)
 const firebaseConfig = {
   apiKey: "AIzaSyBo3XUE50eWFE9-Azop41J808GD_ovh81I",
   authDomain: "laka-trail-run-2026.firebaseapp.com",
@@ -11,29 +11,25 @@ const firebaseConfig = {
   appId: "1:691422515370:web:3f0507585e51e77cacc0d3"
 };
 
-// Inisialisasi Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 const db = firebase.database();
 
-// 2. Konfigurasi API ImgBB (Daftar percuma di api.imgbb.com untuk dapatkan kunci)
-// Ini adalah cara paling pantas dan selamat untuk terima gambar dari pengguna awam
-const IMGBB_API_KEY = "LETAK_API_KEY_IMGBB_ANDA_DI_SINI";
+// URL Web App Google Apps Script anda
+const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHVyjID9pbW2y0PLnkgjCMyFlkT8PCeluuEhqgKXvCAuV5/exec";
 
-// 3. Pengendali Borang Tempahan
+// 2. Pengendali Borang Tempahan
 document.getElementById('formBaju').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Kawalan UI: Tukar butang semasa proses menghantar
     const btnHantar = document.getElementById('btnHantar');
     const teksAsal = btnHantar.innerText;
-    btnHantar.innerText = "SEDANG MENGHANTAR...";
+    btnHantar.innerText = "MEMPROSES & MENGHANTAR...";
     btnHantar.disabled = true;
     btnHantar.classList.add('opacity-50', 'cursor-not-allowed');
 
     try {
-        // Ambil data dari input HTML
         const nama = document.getElementById('nama').value.trim();
         const ic = document.getElementById('ic').value.trim();
         const telefon = document.getElementById('telefon').value.trim();
@@ -45,26 +41,44 @@ document.getElementById('formBaju').addEventListener('submit', async function(e)
         const resitFile = document.getElementById('resit').files[0];
         const timestamp = new Date().toISOString();
 
-        // Muat Naik Resit ke ImgBB
         let resitUrl = "";
+
         if (resitFile) {
-            const formData = new FormData();
-            formData.append('image', resitFile);
+            // A. Mampatkan Imej (Maksimum 200KB)
+            const options = { maxSizeMB: 0.2, maxWidthOrHeight: 1024, useWebWorker: true };
+            const compressedFile = await imageCompression(resitFile, options);
             
-            const uploadResponse = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                method: 'POST',
-                body: formData
+            // B. Tukar ke Base64
+            const base64String = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(compressedFile);
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
             });
-            const uploadResult = await uploadResponse.json();
+
+            // C. Hantar ke GAS
+            const payloadGAS = {
+                action: 'upload_baju', // Tindakan berbeza untuk elak masuk ke fail Sheets Larian
+                ic: ic,
+                imageB64: base64String.split(',')[1],
+                mimeType: base64String.split(';')[0].split(':')[1]
+            };
+
+            const response = await fetch(gasURL, {
+                method: 'POST',
+                body: JSON.stringify(payloadGAS),
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+            });
             
-            if (uploadResult.success) {
-                resitUrl = uploadResult.data.url;
+            const resultGAS = await response.json();
+            if (resultGAS.status === "success" && resultGAS.fileUrl) {
+                resitUrl = resultGAS.fileUrl;
             } else {
-                throw new Error("Gagal memuat naik resit. Sila cuba lagi.");
+                throw new Error("Gagal menyimpan resit ke pelayan Google.");
             }
         }
 
-        // Susun objek data untuk Firebase
+        // Susun data untuk Firebase
         const tempahanData = {
             nama: nama,
             ic: ic,
@@ -75,28 +89,22 @@ document.getElementById('formBaju').addEventListener('submit', async function(e)
             penghantaran: penghantaran,
             alamat: alamat,
             resit_url: resitUrl,
-            status: "Menunggu Pengesahan", // Status awal untuk admin semak nanti
+            status: "Menunggu Pengesahan", 
             tarikh_tempahan: timestamp
         };
 
-        // Simpan ke Firebase menggunakan No Kad Pengenalan sebagai ID Unik (Key)
-        // Ini akan sangat memudahkan Fasa 3 nanti untuk carian status
+        // Simpan ke Firebase
         await db.ref('tempahan_baju/' + ic).set(tempahanData);
 
-        // Maklum balas kejayaan
-        alert("Tempahan berjaya dihantar! Anda boleh menyemak status dalam masa 24 jam.");
+        alert("Tempahan berjaya dihantar! Anda boleh menyemak status menggunakan No IC anda dalam masa 24 jam.");
         
-        // Reset borang
         document.getElementById('formBaju').reset();
-        if (typeof toggleAlamat === "function") {
-            toggleAlamat(false);
-        }
+        if (typeof toggleAlamat === "function") toggleAlamat(false);
 
     } catch (error) {
-        console.error("Ralat Penghantaran:", error);
+        console.error("Ralat:", error);
         alert("Terdapat ralat: " + error.message);
     } finally {
-        // Kembalikan keadaan butang seperti asal jika gagal atau berjaya
         btnHantar.innerText = teksAsal;
         btnHantar.disabled = false;
         btnHantar.classList.remove('opacity-50', 'cursor-not-allowed');
