@@ -103,8 +103,8 @@ form.addEventListener('submit', async (e) => {
         const payloadGAS = {
             action: 'upload_receipt',
             id: idTempahan,
-            nama: dataSemasa.nama,   // Ditarik dari pangkalan data Firebase
-            emel: dataSemasa.emel,   // Ditarik dari pangkalan data Firebase
+            nama: dataSemasa.nama,   
+            emel: dataSemasa.emel,   
             refNo: refNo,
             tarikh: tarikh,
             masa: masa,
@@ -115,12 +115,21 @@ form.addEventListener('submit', async (e) => {
         // MASUKKAN WEB APP URL ANDA DI BAWAH INI
         const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHVyjID9pbW2y0PLnkgjCMyFlkT8PCeluuEhqgKXvCAuV5/exec";
         
-        // Hantar ke Google Apps Script tanpa menunggu respon (Fire and forget) untuk elak browser 'hang'
-        fetch(gasURL, {
+        // TUNGGU RESPON DARI GAS UNTUK DAPATKAN URL GAMBAR
+        const response = await fetch(gasURL, {
             method: 'POST',
             body: JSON.stringify(payloadGAS),
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' } // text/plain elak isu CORS ketat
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }
         });
+        
+        const resultGAS = await response.json();
+
+        // 4. Masukkan URL Resit (dari Google Drive) ke dalam Firebase
+        if (resultGAS && resultGAS.fileUrl) {
+            await update(pesertaRef, {
+                resitUrl: resultGAS.fileUrl
+            });
+        }
 
         statusMsg.className = "text-center mt-2 font-bold text-green-600";
         statusMsg.innerText = "Berjaya! Resit anda sedang disemak.";
