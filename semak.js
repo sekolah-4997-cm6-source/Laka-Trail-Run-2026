@@ -79,7 +79,6 @@ function binaKadKeputusan(idTempahan, data, jenis) {
             htmlSenarai += "<li><strong>Jersi Sublimation</strong></li>";
         }
         htmlSenarai += "<li>Nombor Bib</li>";
-        htmlSenarai += "<li>Kupon RM10 <span class='text-xs text-gray-500 italic'>(untuk Laka Havoc Fest)</span></li>";
         htmlSenarai += "<li>Medal Finisher <span class='text-xs text-gray-500 italic'>(selepas tamat)</span></li>";
         htmlSenarai += "<li>Sijil</li>";
 
