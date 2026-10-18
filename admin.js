@@ -35,16 +35,20 @@ async function muatDataPending() {
             const tr = document.createElement('tr');
             tr.className = "border-b border-gray-200 hover:bg-gray-50";
             
+            // Semak jika ada URL resit (bergantung kepada sistem muat naik anda)
+            const butangResit = data.resitUrl ? `<a href="${data.resitUrl}" target="_blank" class="mt-2 inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded text-xs font-bold hover:bg-blue-200">Lihat Resit</a>` : '';
+
             tr.innerHTML = `
                 <td class="py-4 px-6 text-left whitespace-nowrap">
                     <span class="font-bold text-blue-700 block">${id}</span>
                     <span class="font-bold text-gray-800">${data.nama}</span><br>
-                    <span class="text-xs text-gray-500">${data.ic} | Pakej: ${data.pakej}</span>
+                    <span class="text-xs text-gray-500">${data.ic} | No Tel: ${data.telefon || '-'}</span><br>
+                    <span class="text-xs font-bold text-green-600">Pakej: ${data.pakej} ${data.saizBaju && data.saizBaju !== 'Tiada' ? `(Saiz: ${data.saizBaju})` : ''}</span>
                 </td>
                 <td class="py-4 px-6 text-left">
-                    Ref: <span class="font-bold">${data.refNo}</span><br>
-                    <span class="text-xs text-gray-600">${data.tarikhBayaran} @ ${data.masaBayaran}</span><br>
-                    <a href="https://docs.google.com/spreadsheets/d/1x3v_jWGqsIs_n3KF3eVnwjYGEZAE-7kc9TSVyAgmQCI/edit" target="_blank" class="text-xs text-blue-600 hover:underline">Sahkan di Google Sheets</a>
+                    Ref: <span class="font-bold">${data.refNo || 'Tiada Rujukan'}</span><br>
+                    <span class="text-xs text-gray-600">${data.tarikhBayaran || '-'} @ ${data.masaBayaran || '-'}</span><br>
+                    ${butangResit}
                 </td>
                 <td class="py-4 px-6 text-center">
                     <div class="flex item-center justify-center space-x-2">
@@ -96,11 +100,10 @@ window.luluskan = async (id, nama, emel, pakej) => {
             console.log("Respon dari Pelayan Google:", data);
         })
         .catch(error => {
-            alert("Gagal menghubungi Google Apps Script. Sila semak URL GAS anda.");
             console.error("Ralat GAS:", error);
         });
 
-        alert(`✅ Berjaya diluluskan! E-Tiket rasmi sedang dihantar ke ${emel} dan rekod Sheets sedang dikemas kini.`);
+        alert(`✅ Berjaya diluluskan! E-Tiket rasmi sedang dihantar ke ${emel}.`);
         muatDataPending(); 
 
     } catch (error) {
@@ -110,7 +113,7 @@ window.luluskan = async (id, nama, emel, pakej) => {
 
 // 4. Fungsi Tolak
 window.tolak = async (id, nama, emel) => {
-    const sah = confirm(`Pasti untuk TOLAK resit ${nama}?\nSistem akan dikemas kini.`);
+    const sah = confirm(`Pasti untuk TOLAK resit ${nama}?\nSistem akan dikemas kini dan pendaftaran dibatalkan.`);
     if (!sah) return;
 
     try {
