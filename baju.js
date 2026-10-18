@@ -58,8 +58,15 @@ document.getElementById('formBaju').addEventListener('submit', async function(e)
 
             // C. Hantar ke GAS
             const payloadGAS = {
-                action: 'upload_baju', // Tindakan berbeza untuk elak masuk ke fail Sheets Larian
+                action: 'upload_baju', 
                 ic: ic,
+                nama: nama,
+                telefon: telefon,
+                jenis_baju: jenis_baju,
+                saiz: saiz,
+                kuantiti: kuantiti,
+                penghantaran: penghantaran,
+                alamat: alamat,
                 imageB64: base64String.split(',')[1],
                 mimeType: base64String.split(';')[0].split(':')[1]
             };
