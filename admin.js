@@ -1,9 +1,23 @@
-import { db } from './firebase-config.js';
-import { ref, query, orderByChild, equalTo, get, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+// 1. Konfigurasi Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBo3XUE50eWFE9-Azop41J808GD_ovh81I",
+    authDomain: "laka-trail-run-2026.firebaseapp.com",
+    databaseURL: "https://laka-trail-run-2026-default-rtdb.firebaseio.com",
+    projectId: "laka-trail-run-2026",
+    storageBucket: "laka-trail-run-2026.firebasestorage.app",
+    messagingSenderId: "691422515370",
+    appId: "1:691422515370:web:3f0507585e51e77cacc0d3"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.database();
 
 const gasURL = "https://script.google.com/macros/s/AKfycbxo37ypDszt2C2WbqU2O7wHVyjID9pbW2y0PLnkgjCMyFlkT8PCeluuEhqgKXvCAuV5/exec";
 const tableBody = document.getElementById('tableBody');
 
+// 2. Akses Keselamatan
 const kataLaluan = prompt("Sila masukkan kata laluan urusetia:");
 if (kataLaluan !== "nanas2026") {
     alert("Akses Ditolak!");
@@ -12,15 +26,16 @@ if (kataLaluan !== "nanas2026") {
     muatDataPending();
 }
 
+// 3. Muat Turun Data dari Pangkalan Data
 async function muatDataPending() {
     try {
-        // 1. Cari Peserta Larian
-        const qPeserta = query(ref(db, 'peserta'), orderByChild('status'), equalTo('PENDING_VERIFICATION'));
-        const snapPeserta = await get(qPeserta);
+        tableBody.innerHTML = `<tr><td colspan="3" class="py-16 text-center text-gray-500 font-bold uppercase tracking-widest text-xs">Mencari rekod baharu...</td></tr>`;
         
-        // 2. Cari Tempahan Baju
-        const qBaju = query(ref(db, 'tempahan_baju'), orderByChild('status'), equalTo('Menunggu Pengesahan'));
-        const snapBaju = await get(qBaju);
+        // Cari Peserta Larian
+        const snapPeserta = await db.ref('peserta').orderByChild('status').equalTo('PENDING_VERIFICATION').once('value');
+        
+        // Cari Tempahan Baju
+        const snapBaju = await db.ref('tempahan_baju').orderByChild('status').equalTo('Menunggu Pengesahan').once('value');
         
         tableBody.innerHTML = ""; 
         let adaData = false;
@@ -36,14 +51,15 @@ async function muatDataPending() {
         }
 
         if (!adaData) {
-            tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-gray-500 font-bold">Tiada resit baharu untuk disahkan. 🎉</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-gray-500 font-bold">Tiada resit baharu untuk disahkan setakat ini. 🎉</td></tr>`;
         }
     } catch (error) {
         console.error(error);
-        tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-red-500">Ralat memuatkan data pangkalan data.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-red-500">Ralat memuatkan pangkalan data: ${error.message}</td></tr>`;
     }
 }
 
+// 4. Jana Baris Jadual
 function paparBaris(id, data, jenis) {
     const tr = document.createElement('tr');
     tr.className = "border-b border-gray-200 hover:bg-gray-50";
@@ -62,8 +78,8 @@ function paparBaris(id, data, jenis) {
                 Ref: <span class="font-bold">${data.refNo || '-'}</span><br>
                 ${butangResit}
             </td>
-            <td class="py-4 px-6 text-center">
-                <button onclick="luluskanPeserta('${id}', '${data.nama}', '${data.emel}', '${data.pakej}')" class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600 font-bold mr-1">Lulus</button>
+            <td class="py-4 px-6 text-center space-x-1">
+                <button onclick="luluskanPeserta('${id}', '${data.nama}', '${data.emel}', '${data.pakej}')" class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600 font-bold">Lulus</button>
                 <button onclick="tolakRekod('${id}', 'peserta')" class="bg-red-500 text-white px-3 py-1 rounded shadow hover:bg-red-600 font-bold">Tolak</button>
             </td>
         `;
@@ -77,11 +93,11 @@ function paparBaris(id, data, jenis) {
                 <span class="text-xs font-bold text-green-600">${data.jenis_baju} (Saiz: ${data.saiz} | Qty: ${data.kuantiti})</span>
             </td>
             <td class="py-4 px-6 text-left">
-                Penghantaran: <span class="font-bold text-gray-700">${data.penghantaran}</span><br>
+                Hantar: <span class="font-bold text-gray-700">${data.penghantaran}</span><br>
                 ${butangResit}
             </td>
-            <td class="py-4 px-6 text-center">
-                <button onclick="luluskanBaju('${id}')" class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600 font-bold mr-1">Lulus</button>
+            <td class="py-4 px-6 text-center space-x-1">
+                <button onclick="luluskanBaju('${id}')" class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600 font-bold">Lulus</button>
                 <button onclick="tolakRekod('${id}', 'baju')" class="bg-red-500 text-white px-3 py-1 rounded shadow hover:bg-red-600 font-bold">Tolak</button>
             </td>
         `;
@@ -89,13 +105,14 @@ function paparBaris(id, data, jenis) {
     tableBody.appendChild(tr);
 }
 
+// 5. Fungsi Kelulusan
 window.luluskanPeserta = async (id, nama, emel, pakej) => {
     const noBib = prompt(`Masukkan Nombor BIB larian untuk ${nama}:`);
     if (!noBib) return; 
-    if (!confirm(`Pasti untuk LULUSKAN ${nama}?`)) return;
+    if (!confirm(`Pasti untuk LULUSKAN pendaftaran ${nama}?`)) return;
 
     try {
-        await update(ref(db, 'peserta/' + id), { status: "CONFIRMED", bib: noBib });
+        await db.ref('peserta/' + id).update({ status: "CONFIRMED", bib: noBib });
         fetch(gasURL, { method: 'POST', body: JSON.stringify({ action: 'lulus_resit', id: id, nama: nama, emel: emel, bib: noBib, pakej: pakej }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
         alert(`✅ Pendaftaran larian diluluskan!`);
         muatDataPending(); 
@@ -105,7 +122,7 @@ window.luluskanPeserta = async (id, nama, emel, pakej) => {
 window.luluskanBaju = async (id) => {
     if (!confirm(`Pasti untuk LULUSKAN tempahan baju ini?`)) return;
     try {
-        await update(ref(db, 'tempahan_baju/' + id), { status: "Disahkan" });
+        await db.ref('tempahan_baju/' + id).update({ status: "Disahkan" });
         alert(`✅ Tempahan baju diluluskan!`);
         muatDataPending(); 
     } catch (error) { alert("Ralat: " + error.message); }
@@ -116,7 +133,7 @@ window.tolakRekod = async (id, jenis) => {
     try {
         const laluan = jenis === 'peserta' ? 'peserta/' + id : 'tempahan_baju/' + id;
         const statusTolak = jenis === 'peserta' ? 'REJECTED' : 'Ditolak';
-        await update(ref(db, laluan), { status: statusTolak });
+        await db.ref(laluan).update({ status: statusTolak });
         alert(`❌ Rekod ditolak.`);
         muatDataPending(); 
     } catch (error) { alert("Ralat: " + error.message); }
