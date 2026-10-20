@@ -1,4 +1,6 @@
-// 1. Konfigurasi Firebase
+// admin.js (Standalone Firebase V8)
+
+// 1. Konfigurasi Firebase (Standalone)
 const firebaseConfig = {
     apiKey: "AIzaSyBo3XUE50eWFE9-Azop41J808GD_ovh81I",
     authDomain: "laka-trail-run-2026.firebaseapp.com",
@@ -122,7 +124,19 @@ window.luluskanPeserta = async (id, nama, emel, pakej) => {
 window.luluskanBaju = async (id) => {
     if (!confirm(`Pasti untuk LULUSKAN tempahan baju ini?`)) return;
     try {
+        // 1. Kemas kini Firebase
         await db.ref('tempahan_baju/' + id).update({ status: "Disahkan" });
+        
+        // 2. KOD BARU: Panggil Google Apps Script untuk kemas kini Sheets
+        fetch(gasURL, { 
+            method: 'POST', 
+            body: JSON.stringify({ 
+                action: 'lulus_baju', 
+                id: id // Hantar ID tempahan baju
+            }), 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+        });
+        
         alert(`✅ Tempahan baju diluluskan!`);
         muatDataPending(); 
     } catch (error) { alert("Ralat: " + error.message); }
