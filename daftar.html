@@ -13,7 +13,7 @@
         body { font-family: 'Inter', sans-serif; }
         .font-sports { font-family: 'Montserrat', sans-serif; }
         .bg-pattern {
-            background-color: #047857; /* Green-700 */
+            background-color: #047857;
             background-image: radial-gradient(#065f46 1px, transparent 1px);
             background-size: 20px 20px;
         }
@@ -35,9 +35,19 @@
     <div class="max-w-3xl w-full mx-auto px-4 -mt-16 relative z-20 flex-grow mb-12">
         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-gray-100 border-t-8 border-t-yellow-400">
             
-            <div class="text-center mb-8 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                <p class="text-gray-500 font-bold uppercase text-sm tracking-wider">Slot Pakej A Berbaki</p>
-                <p id="slotBaki" class="text-3xl font-sports font-black italic text-red-600 animate-pulse mt-1">Memuatkan...</p>
+            <!-- Paparan Baki Slot A & B -->
+            <div class="grid grid-cols-2 gap-4 text-center mb-8 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div class="border-r border-gray-200">
+                    <p class="text-gray-500 font-bold uppercase text-xs tracking-wider">Slot Pakej A</p>
+                    <p id="slotBakiA" class="text-3xl font-sports font-black italic text-red-600 animate-pulse mt-1">-</p>
+                </div>
+                <div>
+                    <p class="text-gray-500 font-bold uppercase text-xs tracking-wider">Slot Pakej B</p>
+                    <p id="slotBakiB" class="text-3xl font-sports font-black italic text-blue-600 animate-pulse mt-1">-</p>
+                </div>
+                <div class="col-span-2 mt-2 pt-2 border-t border-gray-200">
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Pakej Challenger: Tiada Had (Bebas)</p>
+                </div>
             </div>
 
             <form id="bookingForm" class="space-y-6">
@@ -89,12 +99,13 @@
                                 <option value="">Sila Pilih Pakej</option>
                                 <option value="A">Pakej A (Baju, Medal, Bib, Sijil) - RM45</option>
                                 <option value="B">Pakej B (Medal, Bib, Sijil) - RM25</option>
+                                <option value="Challenger">Pakej Challenger (Bib Custom & Sijil Sahaja) - RM10</option>
                             </select>
                         </div>
 
                         <div id="ruangSaiz" class="hidden bg-yellow-50 p-4 rounded-xl border border-yellow-200">
                             <img src="sizing-chart.jpg" alt="sizing chart" class="w-full h-full object-cover">
-                            <label class="block font-bold text-sm text-yellow-900 uppercase mb-1">Saiz Baju (Pakej A Sahaja)</label>
+                            <label class="block font-bold text-sm text-yellow-900 uppercase mb-1 mt-3">Saiz Baju (Pakej A Sahaja)</label>
                             <select id="saizBaju" class="w-full border-2 border-yellow-300 p-3 rounded-lg bg-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition cursor-pointer font-bold text-yellow-800">
                                 <option value="XS">XS</option>
                                 <option value="S">S</option>
@@ -107,7 +118,7 @@
                                 <option value="5XL(+RM6)">5XL(+RM6)</option>
                                 <option value="6XL(+RM9)">6XL(+RM9)</option>
                             </select>
-                            <p class="text-xs mt-2 text-yellow-700 italic">*Rujuk ukuran rasmi. Tiada penukaran saiz dibenarkan kelak. Jika memilih saiz 4XL keatas, anda perlu menambah bayaran kepada Pakej. (contoh: 4XL, harga perlu dibayar: RM60+3).</p>
+                            <p class="text-xs mt-2 text-yellow-700 italic">*Rujuk ukuran rasmi. Tiada penukaran saiz dibenarkan kelak. Bayaran tambahan dikenakan secara automatik untuk saiz 4XL ke atas.</p>
                         </div>
                     </div>
                 </div>
@@ -142,7 +153,6 @@
             </form>
         </div>
         
-        <!-- Pautan kembali -->
         <div class="text-center mt-8">
             <a href="index.html" class="inline-flex items-center text-gray-500 hover:text-green-700 font-bold transition">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -151,7 +161,7 @@
         </div>
     </div>
 
-    <!-- Skrip (DIKEKALKAN) -->
+    <!-- Skrip -->
     <script type="module" src="booking.js"></script>
 </body>
 </html>
