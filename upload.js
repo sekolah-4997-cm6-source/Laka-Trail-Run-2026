@@ -108,6 +108,8 @@ form.addEventListener('submit', async (e) => {
             refNo: refNo,
             tarikh: tarikh,
             masa: masa,
+            pakej: dataSemasa.pakej || "Tiada Maklumat", // TAMBAHAN: Tarik pakej dari Firebase
+            harga: dataSemasa.harga || "Sila Semak",     // TAMBAHAN: Tarik harga dari Firebase
             imageB64: base64String.split(',')[1],
             mimeType: base64String.split(';')[0].split(':')[1]
         };
