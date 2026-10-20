@@ -4,12 +4,13 @@ import { ref, runTransaction, set, onValue, serverTimestamp } from "https://www.
 const pakejSelect = document.getElementById('pakej');
 const ruangSaiz = document.getElementById('ruangSaiz');
 const saizBaju = document.getElementById('saizBaju');
-const slotBakiDisplay = document.getElementById('slotBaki');
+const slotBakiA = document.getElementById('slotBakiA');
+const slotBakiB = document.getElementById('slotBakiB');
 const form = document.getElementById('bookingForm');
 const btnSubmit = document.getElementById('btnSubmit');
 const statusMsg = document.getElementById('statusMsg');
 
-// Papar/Sorok saiz baju
+// Papar/Sorok saiz baju mengikut pakej
 pakejSelect.addEventListener('change', function() {
     if (this.value === 'A') {
         ruangSaiz.classList.remove('hidden');
@@ -21,13 +22,15 @@ pakejSelect.addEventListener('change', function() {
     }
 });
 
-// Pantau baki slot Pakej A secara Live
-const slotRef = ref(db, 'system_stats/kuota_pakej_A');
-onValue(slotRef, (snapshot) => {
-    const baki = snapshot.val();
-    if(baki !== null) {
-        slotBakiDisplay.innerText = baki;
-    }
+// Pantau baki slot Pakej A dan Pakej B secara Live
+const refKuotaA = ref(db, 'system_stats/kuota_pakej_A');
+onValue(refKuotaA, (snapshot) => {
+    if (snapshot.exists()) slotBakiA.innerText = snapshot.val();
+});
+
+const refKuotaB = ref(db, 'system_stats/kuota_pakej_B');
+onValue(refKuotaB, (snapshot) => {
+    if (snapshot.exists()) slotBakiB.innerText = snapshot.val();
 });
 
 function janaID() {
@@ -42,14 +45,31 @@ form.addEventListener('submit', async (e) => {
     statusMsg.className = "text-center mt-2 font-bold text-blue-600";
     statusMsg.innerText = "Sila tunggu sebentar...";
 
+    const pilihanPakej = document.getElementById('pakej').value;
+    const pilihanSaiz = document.getElementById('saizBaju').value || "Tiada";
+    
+    // Kira Harga Automatik
+    let hargaLarian = 0;
+    if (pilihanPakej === 'A') {
+        hargaLarian = 45;
+        if (pilihanSaiz === '4XL(+RM3)') hargaLarian += 3;
+        if (pilihanSaiz === '5XL(+RM6)') hargaLarian += 6;
+        if (pilihanSaiz === '6XL(+RM9)') hargaLarian += 9;
+    } else if (pilihanPakej === 'B') {
+        hargaLarian = 25;
+    } else if (pilihanPakej === 'Challenger') {
+        hargaLarian = 10;
+    }
+
     const dataPendaftar = {
         nama: document.getElementById('nama').value,
         ic: document.getElementById('ic').value,
         jantina: document.getElementById('jantina').value,
         telefon: document.getElementById('telefon').value,
         emel: document.getElementById('emel').value,
-        pakej: document.getElementById('pakej').value,
-        saizBaju: document.getElementById('saizBaju').value || "Tiada",
+        pakej: pilihanPakej,
+        saizBaju: pilihanSaiz,
+        harga: "RM" + hargaLarian, // Disimpan untuk ditarik oleh fail muat naik resit
         warisNama: document.getElementById('warisNama').value,
         warisTel: document.getElementById('warisTel').value,
         status: "PENDING_PAYMENT",
@@ -59,30 +79,26 @@ form.addEventListener('submit', async (e) => {
     const idTempahan = janaID();
 
     try {
-        if (dataPendaftar.pakej === 'A') {
-            // Proses Transaksi untuk tolak kuota
-            const transaksi = await runTransaction(slotRef, (kuotaSemasa) => {
-                if (kuotaSemasa > 0) {
-                    return kuotaSemasa - 1;
-                } else {
-                    return; // Batalkan jika kuota 0
-                }
+        // Proses Pemotongan Kuota untuk Pakej A atau B Sahaja
+        if (pilihanPakej === 'A' || pilihanPakej === 'B') {
+            const sasaranRef = pilihanPakej === 'A' ? refKuotaA : refKuotaB;
+            
+            const transaksi = await runTransaction(sasaranRef, (kuotaSemasa) => {
+                if (kuotaSemasa > 0) return kuotaSemasa - 1;
+                else return; // Batalkan jika kuota 0
             });
 
             if (!transaksi.committed) {
                 statusMsg.className = "text-center mt-2 font-bold text-red-600";
-                statusMsg.innerText = "Maaf, slot Pakej A telah penuh!";
+                statusMsg.innerText = `Maaf, slot Pakej ${pilihanPakej} telah penuh!`;
                 btnSubmit.disabled = false;
-                btnSubmit.innerText = "Tempah Slot Sekarang";
+                btnSubmit.innerText = "HANTAR PENDAFTARAN";
                 return;
             }
         }
 
-        // Simpan data pendaftar jika Pakej B, atau Pakej A berjaya dikunci
+        // Pakej Challenger akan terus ke fasa ini tanpa memotong kuota
         await set(ref(db, 'peserta/' + idTempahan), dataPendaftar);
-
-        // Hantar request ke GAS untuk Emel 1 (Akan diaktifkan pada Fasa 4)
-        // fetch('URL_GAS_ANDA', { method: 'POST', body: JSON.stringify({action: 'emel_booking', id: idTempahan, data: dataPendaftar}) });
 
         window.location.href = `success.html?id=${idTempahan}`;
 
@@ -91,6 +107,6 @@ form.addEventListener('submit', async (e) => {
         statusMsg.className = "text-center mt-2 font-bold text-red-600";
         statusMsg.innerText = "Ralat sistem. Sila cuba lagi.";
         btnSubmit.disabled = false;
-        btnSubmit.innerText = "Tempah Slot Sekarang";
+        btnSubmit.innerText = "HANTAR PENDAFTARAN";
     }
 });
