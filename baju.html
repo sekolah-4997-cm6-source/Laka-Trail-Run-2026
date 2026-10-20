@@ -166,42 +166,63 @@
                         </div>
                     </div>
 
-                    <!-- 2. Maklumat Baju -->
+                    <!-- 2. Pilihan Baju (Dynamic Multi-Order) -->
                     <div>
                         <h4 class="font-bold text-gray-700 border-b pb-2 mb-4 mt-6">2. Pilihan Baju</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="md:col-span-1">
-                                <label class="block text-sm font-semibold text-gray-600 mb-1">Jenis Baju</label>
-                                <select id="jenis_baju" required class="w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
-                                    <option value="">Pilih Jenis</option>
-                                    <option value="Roundneck Pendek">Roundneck Pendek (RM32)</option>
-                                    <option value="Roundneck Panjang">Roundneck Panjang (RM36)</option>
-                                    <option value="Berkolar Pendek">Berkolar Pendek (RM35)</option>
-                                    <option value="Berkolar Panjang">Berkolar Panjang (RM39)</option>
-                                    <option value="Muslimah">Muslimah (RM45)</option>
-                                </select>
+                        
+                        <!-- Container untuk item baju -->
+                        <div id="containerItemBaju" class="space-y-4">
+                            
+                            <!-- Template Row (Default 1 Row) -->
+                            <div class="rowBaju p-5 bg-gray-50 rounded-xl border border-gray-200 relative grid grid-cols-1 md:grid-cols-7 gap-3">
+                                <div class="md:col-span-3">
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">Jenis Baju</label>
+                                    <select required class="fieldJenis w-full px-3 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 text-sm">
+                                        <option value="">Pilih Jenis</option>
+                                        <option value="Roundneck Pendek">Roundneck Pendek (RM32)</option>
+                                        <option value="Roundneck Panjang">Roundneck Panjang (RM36)</option>
+                                        <option value="Berkolar Pendek">Berkolar Pendek (RM35)</option>
+                                        <option value="Berkolar Panjang">Berkolar Panjang (RM39)</option>
+                                        <option value="Muslimah">Muslimah (RM45)</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">Saiz</label>
+                                    <select required class="fieldSaiz w-full px-3 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 text-sm">
+                                        <option value="">Pilih Saiz</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="2XL">2XL</option>
+                                        <option value="3XL">3XL</option>
+                                        <option value="4XL">4XL (+RM3)</option>
+                                        <option value="5XL">5XL (+RM6)</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-1">
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">Kuantiti</label>
+                                    <input type="number" required min="1" value="1" class="fieldKuantiti w-full px-3 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 text-sm text-center">
+                                </div>
+                                <!-- Butang Buang Row (Hanya muncul jika > 1 Row) -->
+                                <div class="md:col-span-1 flex items-end justify-center">
+                                    <button type="button" class="btnBuangItem hidden bg-red-100 text-red-700 font-bold p-2 rounded-lg hover:bg-red-200 text-sm">
+                                        Buang
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-600 mb-1">Saiz</label>
-                                <select id="saiz" required class="w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
-                                    <option value="">Pilih Saiz</option>
-                                    <option value="XS">XS</option>
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="2XL">2XL</option>
-                                    <option value="3XL">3XL</option>
-                                    <option value="3XL">4XL (+RM3)</option>
-                                    <option value="3XL">5XL (+RM6)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-600 mb-1">Kuantiti</label>
-                                <input type="number" id="kuantiti" required min="1" value="1" class="w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 text-center">
-                            </div>
+                            <!-- Akhir Template -->
+
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">*Untuk tempahan lebih daripada 1 jenis baju berbeza, sila isi borang berasingan atau hubungi urusetia.</p>
+
+                        <!-- Butang Tambah Item -->
+                        <div class="mt-4 text-center">
+                            <button type="button" id="btnTambahBaju" class="inline-flex items-center gap-2 bg-gray-200 text-gray-700 font-bold px-4 py-2 rounded-lg hover:bg-yellow-400 hover:text-yellow-900 transition-colors text-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                TAMBAH BAJU LAIN (PELBAGAI JENIS/SAIZ)
+                            </button>
+                        </div>
                     </div>
 
                     <!-- 3. Kaedah Penghantaran -->
@@ -232,12 +253,18 @@
                             <p class="text-gray-700">Bank: <span class="font-bold">Maybank</span></p>
                             <p class="text-gray-700">No. Akaun: <span class="font-bold">1590 1320 3523</span></p>
                             <p class="text-gray-700">Nama Akaun: <span class="font-bold">MUHAMMAD AKIFF ZUHAILLEY BIN AZRUL</span></p>
-                            <p class="text-gray-700 mt-2 italic">*Kira jumlah dengan betul berdasarkan harga baju (dan tambahan +RM10 jika memilih pos/ harga tambahan untuk saiz 4XL dan keatas).</p>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-gray-600 mb-1">Muat Naik Resit (.jpg, .png, .pdf)</label>
                             <input type="file" id="resit" required accept="image/*,.pdf" class="w-full px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-100 file:text-green-700 hover:file:bg-green-200">
                         </div>
+                    </div>
+
+                    <!-- Baris Total Perlu Dibayar -->
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 mt-8 text-center">
+                        <p class="text-lg font-semibold text-gray-600">Total Perlu Dibayar:</p>
+                        <p id="displayTotal" class="text-4xl font-sports font-black italic text-green-700 animate-pulse mt-2">RM 0.00</p>
+                        <p class="text-xs text-gray-500 mt-2 italic">*Kira jumlah dengan betul berdasarkan harga baju (dan tambahan +RM10 jika memilih pos/ harga tambahan untuk saiz 4XL dan keatas).</p>
                     </div>
 
                     <!-- Butang Hantar -->
@@ -260,22 +287,6 @@
             <p class="text-xs">&copy; 2026 SK Felda Laka Selatan. Hak Cipta Terpelihara.</p>
         </div>
     </footer>
-
-    <!-- Skrip Ringkas Kawalan Borang -->
-    <script>
-        function toggleAlamat(show) {
-            const ruang = document.getElementById('ruangAlamat');
-            const inputAlamat = document.getElementById('alamat');
-            if (show) {
-                ruang.classList.remove('hidden');
-                inputAlamat.setAttribute('required', 'true');
-            } else {
-                ruang.classList.add('hidden');
-                inputAlamat.removeAttribute('required');
-                inputAlamat.value = '';
-            }
-        }
-    </script>
 
     <!-- Pustaka Teras Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
