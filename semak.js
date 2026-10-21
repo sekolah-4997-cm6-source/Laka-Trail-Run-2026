@@ -95,11 +95,32 @@ function binaKadKeputusan(idTempahan, data, jenis) {
             </div>
         `;
     } else if (jenis === 'baju') {
+        let senaraiBajuHTML = "";
+        
+        // Loop untuk paparkan semua jenis baju jika format tatasusunan (array) digunakan
+        if (data.items && data.items.length > 0) {
+            data.items.forEach(item => {
+                senaraiBajuHTML += `
+                    <div class="bg-white p-3 rounded-lg border border-green-200 mt-2 shadow-sm text-left">
+                        <p class="font-sports font-black text-lg text-green-800">${item.jenis_baju}</p>
+                        <p class="text-sm font-bold text-green-700">Saiz: ${item.saiz} | Kuantiti: ${item.kuantiti} helai</p>
+                    </div>
+                `;
+            });
+        } else {
+            // Sokongan untuk data lama (jika ada yang mendaftar sebelum sistem multiple diubah)
+            senaraiBajuHTML = `
+                <div class="bg-white p-3 rounded-lg border border-green-200 mt-2 shadow-sm">
+                    <p class="font-sports font-black text-xl text-green-800">${data.jenis_baju}</p>
+                    <p class="text-sm font-bold text-green-700 mt-1">Saiz: ${data.saiz} | Kuantiti: ${data.kuantiti} helai</p>
+                </div>
+            `;
+        }
+
         htmlKad += `
             <div class="bg-green-50 p-4 rounded-xl border border-green-100 shadow-inner text-center mb-6">
                 <p class="text-xs text-green-600 font-bold uppercase tracking-widest mb-1">Butiran Baju</p>
-                <p class="font-sports font-black text-xl text-green-800">${data.jenis_baju} (Saiz: ${data.saiz})</p>
-                <p class="text-sm font-bold text-green-700 mt-1">Kuantiti: ${data.kuantiti} helai</p>
+                ${senaraiBajuHTML}
             </div>
             <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 text-sm text-gray-700 shadow-sm">
                 <p class="font-bold mb-2 text-gray-800 uppercase tracking-wide text-xs">Kaedah Penghantaran:</p>
