@@ -87,12 +87,25 @@ function paparBaris(id, data, jenis) {
         `;
     } else if (jenis === 'baju') {
         const butangResit = data.resit_url ? `<a href="${data.resit_url}" target="_blank" class="mt-2 inline-block bg-green-100 text-green-700 px-3 py-1 rounded text-xs font-bold hover:bg-green-200">Lihat Resit</a>` : '';
+        
+        let senaraiBajuAdmin = "";
+        if (data.items && data.items.length > 0) {
+            data.items.forEach(item => {
+                senaraiBajuAdmin += `<span class="text-xs font-bold text-green-700 block mt-1">&bull; ${item.jenis_baju} (Saiz: ${item.saiz} | Qty: ${item.kuantiti})</span>`;
+            });
+        } else {
+            // Sokongan data lama
+            senaraiBajuAdmin = `<span class="text-xs font-bold text-green-700 block mt-1">&bull; ${data.jenis_baju} (Saiz: ${data.saiz} | Qty: ${data.kuantiti})</span>`;
+        }
+
         tr.innerHTML = `
             <td class="py-4 px-6 text-left whitespace-nowrap">
                 <span class="inline-block px-2 py-1 bg-green-600 text-white text-xs rounded font-bold mb-1 shadow-sm">👕 TEMPAHAN BAJU</span><br>
                 <span class="font-bold text-gray-800">${data.nama}</span><br>
                 <span class="text-xs text-gray-500">${data.ic} | Tel: ${data.telefon}</span><br>
-                <span class="text-xs font-bold text-green-600">${data.jenis_baju} (Saiz: ${data.saiz} | Qty: ${data.kuantiti})</span>
+                <div class="mt-2 bg-green-50 p-2 rounded border border-green-100">
+                    ${senaraiBajuAdmin}
+                </div>
             </td>
             <td class="py-4 px-6 text-left">
                 Hantar: <span class="font-bold text-gray-700">${data.penghantaran}</span><br>
