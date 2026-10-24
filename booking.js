@@ -48,13 +48,14 @@ form.addEventListener('submit', async (e) => {
     const pilihanPakej = document.getElementById('pakej').value;
     const pilihanSaiz = document.getElementById('saizBaju').value || "Tiada";
     
-    // Kira Harga Automatik
+    // Kira Harga Automatik Berdasarkan Pakej A dan Saiz Besar
     let hargaLarian = 0;
     if (pilihanPakej === 'A') {
         hargaLarian = 45;
-        if (pilihanSaiz === '4XL(+RM3)') hargaLarian += 3;
-        if (pilihanSaiz === '5XL(+RM6)') hargaLarian += 6;
-        if (pilihanSaiz === '6XL(+RM9)') hargaLarian += 9;
+        if (pilihanSaiz === '4XL') hargaLarian += 3;
+        else if (pilihanSaiz === '5XL') hargaLarian += 6;
+        else if (pilihanSaiz === '6XL') hargaLarian += 9;
+        else if (pilihanSaiz === '7XL') hargaLarian += 12;
     } else if (pilihanPakej === 'B') {
         hargaLarian = 25;
     } else if (pilihanPakej === 'Challenger') {
