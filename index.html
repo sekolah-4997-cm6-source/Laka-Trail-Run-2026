@@ -51,7 +51,7 @@
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             <span class="inline-block py-1 px-3 rounded-full bg-yellow-500 text-yellow-900 text-xs font-bold uppercase tracking-widest mb-4 animate-pulse shadow-[0_0_15px_rgba(234,179,8,0.8)] border border-yellow-300">
-                Pendaftaran Kini Dibuka Sehingga 25 Oktober 2026, 5:00 Petang
+                Pendaftaran Kini Sudah Ditutup.
             </span>
             <h2 class="text-5xl md:text-7xl font-sports font-black italic text-white mb-2 leading-tight uppercase transform -skew-x-6">
                 Laka Selatan 5K <br> <span class="text-yellow-400">Nanas Trail Run</span> 2026
@@ -62,16 +62,30 @@
                 Oleh itu, marilah kita sama-sama memeriahkan program ini seterusnya memeriahkan Laka Havoc Fest 2026!
             </p>
             
-            <div class="flex flex-col sm:flex-row justify-center gap-4 flex-wrap">
-                <a href="daftar.html" class="bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
-                    DAFTAR SEKARANG
-                </a>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 flex-wrap items-center">
+                
+                <!-- Wrapper Khas Untuk Butang Pendaftaran & Baju (Tempat Overlay) -->
+                <div class="relative flex flex-col sm:flex-row gap-4">
+                    
+                    <!-- OVERLAY NIPIS (Dikawal oleh JavaScript) -->
+                    <div id="overlayTutup" class="hidden absolute -inset-2 z-20 bg-gray-900/60 backdrop-blur-[2px] rounded-xl flex items-end justify-center pb-3 cursor-not-allowed">
+                        <span class="bg-red-600 text-white px-3 py-1 rounded font-bold text-xs shadow-lg uppercase tracking-wider">
+                            Pendaftaran/Tempahan dah ditutup
+                        </span>
+                    </div>
+
+                    <a href="daftar.html" id="btnDaftar" class="bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
+                        DAFTAR SEKARANG
+                    </a>
+                    <a href="baju.html" id="btnBaju" class="bg-blue-600 text-white font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(30,58,138)] hover:translate-y-1 hover:shadow-none hover:bg-blue-500 transition-all duration-200 border-2 border-transparent">
+                        TEMPAH BAJU SAHAJA
+                    </a>
+                </div>
+
                 <a href="semak.html" class="bg-white text-green-700 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(209,213,219)] hover:translate-y-1 hover:shadow-none hover:bg-gray-50 transition-all duration-200 border-2 border-transparent">
                     SEMAK STATUS
                 </a>
-                <a href="baju.html" class="bg-blue-600 text-white font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(30,58,138)] hover:translate-y-1 hover:shadow-none hover:bg-blue-500 transition-all duration-200 border-2 border-transparent">
-                    TEMPAH BAJU SAHAJA
-                </a>
+                
                 <!-- Butang Sijil (Disekat secara lalai) -->
                 <a href="sijil.html" id="btnSijil" class="bg-gray-300 text-gray-500 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(156,163,175)] cursor-not-allowed pointer-events-none transition-all duration-300 border-2 border-gray-400">
                     DAPATKAN SIJIL <span id="labelSijil" class="block text-xs normal-case font-medium mt-1">Dibuka 14 Nov, 10:00 Pagi</span>
@@ -139,12 +153,10 @@
         </div>
     </div>
 
-    <!-- PENGUMUMAN PENTING PEMBAYARAN (Baru Ditambah) -->
+    <!-- PENGUMUMAN PENTING PEMBAYARAN -->
     <div class="container mx-auto px-4 max-w-6xl mt-8 relative z-20">
         <div class="bg-red-50 border-2 border-red-200 p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-start md:items-center gap-6 relative overflow-hidden">
-            <!-- Hiasan Background -->
             <div class="absolute -right-4 -top-4 w-16 h-16 bg-red-100 rounded-full opacity-50 pointer-events-none"></div>
-            
             <div class="bg-red-100 text-red-600 p-4 rounded-full flex-shrink-0">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             </div>
@@ -169,13 +181,12 @@
         </div>
     </div>
 
-    <!-- Info Ringkas (3 Kotak Utama) -->
+    <!-- Info Ringkas -->
     <section class="container mx-auto px-6 py-20 max-w-6xl">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-sports font-black italic text-gray-900 uppercase">Maklumat Acara</h2>
             <div class="w-24 h-1 bg-yellow-400 mx-auto mt-4 rounded"></div>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                 <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-12 transition transform">🏃‍♂️</div>
@@ -197,14 +208,13 @@
         </div>
     </section>
 
-    <!-- Soalan Lazim (FAQ) Accordion -->
+    <!-- Soalan Lazim (FAQ) -->
     <section class="bg-gray-100 py-20">
         <div class="container mx-auto px-6 max-w-3xl">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-sports font-black italic text-gray-900 uppercase">Soalan Lazim (FAQ)</h2>
                 <div class="w-24 h-1 bg-green-600 mx-auto mt-4 rounded"></div>
             </div>
-
             <div class="space-y-4">   
                 <details class="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden" open>
                     <summary class="flex justify-between items-center cursor-pointer font-bold p-5 text-gray-800 hover:bg-gray-50 transition">
@@ -217,7 +227,6 @@
                         Pengambilan Race Kit dan baju akan diadakan pada 12 November (2 PTG - 5 PTG) dan 13 November (8 PAGI - 11 PAGI). Sila bawa e-mel E-Tiket anda sebagai bukti.
                     </div>
                 </details>
-
                 <details class="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                     <summary class="flex justify-between items-center cursor-pointer font-bold p-5 text-gray-800 hover:bg-gray-50 transition">
                         Adakah terdapat cut-off time (had masa) untuk 5KM?
@@ -229,7 +238,6 @@
                         Had masa rasmi adalah 2 Jam dari waktu flag-off. Ini memberi masa yang sangat cukup untuk anda berlari secara santai mahupun berjalan menikmati pemandangan.
                     </div>
                 </details>
-
                 <details class="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                     <summary class="flex justify-between items-center cursor-pointer font-bold p-5 text-gray-800 hover:bg-gray-50 transition">
                         Bolehkah saya menukar saiz baju selepas mendaftar?
@@ -254,12 +262,32 @@
         </div>
     </footer>
 
-    <!-- Skrip Dinamik (Firebase, Countdown, Animasi & Toast) -->
+    <!-- Skrip Dinamik -->
     <script type="module">
         import { db } from './firebase-config.js';
         import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
-        // 1. KIRAAN DETIK (COUNTDOWN) - Sasaran: 14 Nov 2026, 07:45 Pagi
+        // ==========================================
+        // KAWALAN OVERLAY PENDAFTARAN & TEMPAHAN
+        // ==========================================
+        // Tukar "YES" untuk tutup pendaftaran (tunjuk overlay), "NO" untuk buka pendaftaran
+        const STATUS_TUTUP = "YES"; 
+
+        if (STATUS_TUTUP === "YES") {
+            const overlay = document.getElementById("overlayTutup");
+            const btnDaftar = document.getElementById("btnDaftar");
+            const btnBaju = document.getElementById("btnBaju");
+
+            // Tunjukkan overlay
+            overlay.classList.remove("hidden");
+            
+            // Lumpuhkan fungsi klik pada butang di bawah overlay
+            btnDaftar.style.pointerEvents = "none";
+            btnBaju.style.pointerEvents = "none";
+        }
+        // ==========================================
+
+        // 1. KIRAAN DETIK (COUNTDOWN)
         const tarikhAcara = new Date("Nov 14, 2026 07:45:00").getTime();
         const countdownTimer = setInterval(function() {
             const sekarang = new Date().getTime();
@@ -311,21 +339,16 @@
                     total++;
                     const data = child.val();
                     
-                    // Kira status
                     if (data.status === 'PENDING_VERIFICATION' || data.status === 'PENDING') pending++;
                     if (data.status === 'CONFIRMED') confirmed++;
-                    
-                    // Kira Pakej
                     if (data.pakej === 'A') pakejA++;
                     if (data.pakej === 'B') pakejB++;
                 });
             }
             
-            // Kira baki slot
             const sisaA = Math.max(0, 150 - pakejA);
             const sisaB = Math.max(0, 250 - pakejB);
 
-            // Animasikan nombor hanya pada loading pertama
             if (firstLoad) {
                 animasiNombor("statTotal", total);
                 animasiNombor("statPending", pending);
@@ -334,7 +357,6 @@
                 animasiNombor("statPakejB", sisaB);
                 firstLoad = false;
             } else {
-                // Update terus jika ada perubahan live
                 document.getElementById("statTotal").innerText = total;
                 document.getElementById("statPending").innerText = pending;
                 document.getElementById("statSah").innerText = confirmed;
@@ -347,15 +369,13 @@
         window.tunjukToast = function(mesej) {
             const toast = document.getElementById('toastNotif');
             document.getElementById('toastMsg').innerText = mesej;
-            
             toast.classList.remove('translate-x-full', 'opacity-0');
-            
             setTimeout(() => {
                 toast.classList.add('translate-x-full', 'opacity-0');
             }, 3000);
         };
 
-        // 5. KAWALAN BUTANG SIJIL (14 Nov 2026, 10:00:00 Pagi)
+        // 5. KAWALAN BUTANG SIJIL
         const tarikhBukaSijil = new Date("Nov 14, 2026 10:00:00").getTime();
         const btnSijil = document.getElementById("btnSijil");
         const labelSijil = document.getElementById("labelSijil");
@@ -363,7 +383,6 @@
         function semakStatusSijil() {
             const sekarang = new Date().getTime();
             if (sekarang >= tarikhBukaSijil) {
-                // Aktifkan Butang
                 btnSijil.classList.remove("bg-gray-300", "text-gray-500", "cursor-not-allowed", "pointer-events-none", "shadow-[0_4px_0_rgb(156,163,175)]", "border-gray-400");
                 btnSijil.classList.add("bg-blue-600", "text-white", "shadow-[0_4px_0_rgb(37,99,235)]", "hover:translate-y-1", "hover:shadow-none", "hover:bg-blue-700", "border-transparent");
                 labelSijil.innerText = "Sistem Telah Dibuka";
@@ -371,7 +390,6 @@
             }
         }
 
-        // Semak terus semasa halaman dimuat dan ulang setiap 1 minit
         semakStatusSijil();
         setInterval(semakStatusSijil, 60000);
     </script>
