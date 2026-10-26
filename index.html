@@ -51,7 +51,7 @@
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             <span class="inline-block py-1 px-3 rounded-full bg-yellow-500 text-yellow-900 text-xs font-bold uppercase tracking-widest mb-4 animate-pulse shadow-[0_0_15px_rgba(234,179,8,0.8)] border border-yellow-300">
-                Pendaftaran Kini Sudah Ditutup.
+                Pendaftaran Kini Dibuka Sehingga 25 Oktober 2026, 5:00 Petang
             </span>
             <h2 class="text-5xl md:text-7xl font-sports font-black italic text-white mb-2 leading-tight uppercase transform -skew-x-6">
                 Laka Selatan 5K <br> <span class="text-yellow-400">Nanas Trail Run</span> 2026
@@ -64,30 +64,38 @@
             
             <div class="flex flex-col sm:flex-row justify-center gap-4 flex-wrap items-center">
                 
-                <!-- Wrapper Khas Untuk Butang Pendaftaran & Baju (Tempat Overlay) -->
-                <div class="relative flex flex-col sm:flex-row gap-4">
-                    
-                    <!-- OVERLAY NIPIS (Dikawal oleh JavaScript) -->
-                    <div id="overlayTutup" class="hidden absolute -inset-2 z-20 bg-gray-900/60 backdrop-blur-[2px] rounded-xl flex items-end justify-center pb-3 cursor-not-allowed">
-                        <span class="bg-red-600 text-white px-3 py-1 rounded font-bold text-xs shadow-lg uppercase tracking-wider">
-                            Pendaftaran/Tempahan dah ditutup
+                <!-- Butang Daftar Sekarang -->
+                <div class="relative w-full sm:w-auto">
+                    <!-- OVERLAY DAFTAR -->
+                    <div id="overlayDaftar" class="hidden absolute -inset-2 z-20 bg-gray-900/60 backdrop-blur-[2px] rounded-xl flex items-end justify-center pb-3 cursor-not-allowed">
+                        <span class="bg-red-600 text-white px-3 py-1 rounded font-bold text-xs shadow-lg uppercase tracking-wider text-center">
+                            Pendaftaran Ditutup
                         </span>
                     </div>
-
-                    <a href="daftar.html" id="btnDaftar" class="bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
+                    <a href="daftar.html" id="btnDaftar" class="block w-full sm:w-auto bg-yellow-400 text-yellow-900 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(161,98,7)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all duration-200">
                         DAFTAR SEKARANG
                     </a>
-                    <a href="baju.html" id="btnBaju" class="bg-blue-600 text-white font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(30,58,138)] hover:translate-y-1 hover:shadow-none hover:bg-blue-500 transition-all duration-200 border-2 border-transparent">
+                </div>
+
+                <!-- Butang Tempah Baju Sahaja -->
+                <div class="relative w-full sm:w-auto">
+                    <!-- OVERLAY BAJU -->
+                    <div id="overlayBaju" class="hidden absolute -inset-2 z-20 bg-gray-900/60 backdrop-blur-[2px] rounded-xl flex items-end justify-center pb-3 cursor-not-allowed">
+                        <span class="bg-red-600 text-white px-3 py-1 rounded font-bold text-xs shadow-lg uppercase tracking-wider text-center">
+                            Tempahan Ditutup
+                        </span>
+                    </div>
+                    <a href="baju.html" id="btnBaju" class="block w-full sm:w-auto bg-blue-600 text-white font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(30,58,138)] hover:translate-y-1 hover:shadow-none hover:bg-blue-500 transition-all duration-200 border-2 border-transparent">
                         TEMPAH BAJU SAHAJA
                     </a>
                 </div>
 
-                <a href="semak.html" class="bg-white text-green-700 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(209,213,219)] hover:translate-y-1 hover:shadow-none hover:bg-gray-50 transition-all duration-200 border-2 border-transparent">
+                <a href="semak.html" class="w-full sm:w-auto bg-white text-green-700 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(209,213,219)] hover:translate-y-1 hover:shadow-none hover:bg-gray-50 transition-all duration-200 border-2 border-transparent block text-center">
                     SEMAK STATUS
                 </a>
                 
                 <!-- Butang Sijil (Disekat secara lalai) -->
-                <a href="sijil.html" id="btnSijil" class="bg-gray-300 text-gray-500 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(156,163,175)] cursor-not-allowed pointer-events-none transition-all duration-300 border-2 border-gray-400">
+                <a href="sijil.html" id="btnSijil" class="w-full sm:w-auto bg-gray-300 text-gray-500 font-sports font-black italic text-lg py-4 px-10 rounded shadow-[0_4px_0_rgb(156,163,175)] cursor-not-allowed pointer-events-none transition-all duration-300 border-2 border-gray-400 block text-center">
                     DAPATKAN SIJIL <span id="labelSijil" class="block text-xs normal-case font-medium mt-1">Dibuka 14 Nov, 10:00 Pagi</span>
                 </a>
             </div>
@@ -268,22 +276,29 @@
         import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
         // ==========================================
-        // KAWALAN OVERLAY PENDAFTARAN & TEMPAHAN
+        // KAWALAN OVERLAY PENDAFTARAN & TEMPAHAN BAJU
         // ==========================================
-        // Tukar "YES" untuk tutup pendaftaran (tunjuk overlay), "NO" untuk buka pendaftaran
-        const STATUS_TUTUP = "YES"; 
+        const STATUS_TUTUP_DAFTAR = "YES"; // Tukar "YES" untuk tutup, "NO" untuk buka pendaftaran
+        const STATUS_TUTUP_BAJU = "NO";    // Tukar "YES" untuk tutup, "NO" untuk buka tempahan baju
 
-        if (STATUS_TUTUP === "YES") {
-            const overlay = document.getElementById("overlayTutup");
+        // 1. Kawalan Pendaftaran
+        if (STATUS_TUTUP_DAFTAR === "YES") {
+            const overlayDaftar = document.getElementById("overlayDaftar");
             const btnDaftar = document.getElementById("btnDaftar");
-            const btnBaju = document.getElementById("btnBaju");
+            if (overlayDaftar && btnDaftar) {
+                overlayDaftar.classList.remove("hidden");
+                btnDaftar.style.pointerEvents = "none";
+            }
+        }
 
-            // Tunjukkan overlay
-            overlay.classList.remove("hidden");
-            
-            // Lumpuhkan fungsi klik pada butang di bawah overlay
-            btnDaftar.style.pointerEvents = "none";
-            btnBaju.style.pointerEvents = "none";
+        // 2. Kawalan Tempahan Baju
+        if (STATUS_TUTUP_BAJU === "YES") {
+            const overlayBaju = document.getElementById("overlayBaju");
+            const btnBaju = document.getElementById("btnBaju");
+            if (overlayBaju && btnBaju) {
+                overlayBaju.classList.remove("hidden");
+                btnBaju.style.pointerEvents = "none";
+            }
         }
         // ==========================================
 
