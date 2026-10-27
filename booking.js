@@ -111,3 +111,17 @@ form.addEventListener('submit', async (e) => {
         btnSubmit.innerText = "HANTAR PENDAFTARAN";
     }
 });
+
+// ==========================================
+// KAWALAN PAKEJ (HANYA PAKEJ C DIBENARKAN)
+// ==========================================
+pakejSelect.addEventListener('change', function() {
+    // Jika pengguna memilih pakej selain Challenger dan bukan pilihan kosong
+    if (this.value !== 'Challenger' && this.value !== '') {
+        alert("Maaf, pendaftaran bagi pakej ini telah ditutup. Hanya Pakej C (Challenger) sahaja yang masih dibuka sehingga 1 November ini.");
+        this.value = ""; // Reset kembali pilihan ke 'Sila Pilih Pakej'
+        ruangSaiz.classList.add('hidden'); // Sorokkan pilihan saiz baju
+        saizBaju.required = false;
+        saizBaju.value = "";
+    }
+});
